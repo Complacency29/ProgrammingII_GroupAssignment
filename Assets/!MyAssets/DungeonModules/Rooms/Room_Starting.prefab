@@ -47,7 +47,7 @@ MonoBehaviour:
   validConnections: 01000000
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
-  isDefault: 0
+  isDefault: 1
 --- !u!1 &7899202384460755612
 GameObject:
   m_ObjectHideFlags: 0

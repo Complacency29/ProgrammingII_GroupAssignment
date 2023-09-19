@@ -220,10 +220,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923f5e774e61ccc48abb787f068d7a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileset: {fileID: 11400000, guid: 401d7936159d06143a0117bba9439d49, type: 2}
-  maxIterations: 100
+  tileset: {fileID: 11400000, guid: d4453e0ae8b3a6544b49f75469d2843e, type: 2}
+  maxIterations: 20
   maxAttempts: 10
   inProgress: 0
+  lastRoomGenerated: 0
+  clearingInProgress: 0
 --- !u!4 &458824107
 Transform:
   m_ObjectHideFlags: 0

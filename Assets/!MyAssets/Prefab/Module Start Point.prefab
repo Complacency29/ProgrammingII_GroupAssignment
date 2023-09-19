@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12e427d3c29acf40aa0bbec89c0a38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validConnections: 0000000001000000
+  validConnections: 01000000
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0

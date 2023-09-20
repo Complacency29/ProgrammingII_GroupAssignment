@@ -109,7 +109,8 @@ namespace ModuleSnapping
                         //Will store if a collision is found
                         bool collisionFound = false;
 
-                        //Wait a frame to ensure module is in position 
+                        //Wait a frame to ensure module is in position
+                        
                         //yield return new WaitForSeconds(0.5f);          // SLOW GEN
                         yield return null;                              // FAST GEN
                         

@@ -225,8 +225,8 @@ namespace ModuleSnapping
             {
                 //lastRoomGenerated = true;
 
-
-                return tileset.allModules[tileset.allModules.Length - 1];
+                return tileset.endModules[UnityEngine.Random.Range(0, tileset.endModules.Length - 1)];
+                //return tileset.allModules[tileset.allModules.Length - 1];
                 
                 //return validChoices[validChoices.Count - 1];
             }

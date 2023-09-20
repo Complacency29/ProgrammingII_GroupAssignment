@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 7899202385290161861}
   - component: {fileID: 7899202385290161866}
   m_Layer: 6
-  m_Name: Room_Starting
+  m_Name: StartRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

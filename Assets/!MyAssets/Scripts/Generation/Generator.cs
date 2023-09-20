@@ -101,7 +101,8 @@ namespace ModuleSnapping
                         bool collisionFound = false;
 
                         //Wait a frame to ensure module is in position 
-                        yield return new WaitForSeconds(1f);
+                        yield return null;
+                        //yield return new WaitForSeconds(1f);
                         
                         //Check if there has been a collision
                         //If so, remove the new module and try again

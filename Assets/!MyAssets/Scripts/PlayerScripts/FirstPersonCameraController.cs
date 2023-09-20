@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
-    [SerializeField, Range(.1f, 3f)] float mouseSensitivity = 2f;
-    [SerializeField] Transform Graphics;
+    [SerializeField, Range(.1f, 100f)] float mouseSensitivity = 2f;
+    [SerializeField] Transform body;
     private float xRotation;
-    private float yRotation;
 
     InputMaster controls;
 
@@ -27,19 +26,16 @@ public class FirstPersonCameraController : MonoBehaviour
 
     void MouseLook(Vector2 _input)
     {
-        Debug.Log("Mouse look called.");
+        //Debug.Log("Mouse look called.");
 
-        float mouseX = _input.x * mouseSensitivity;
-        float mouseY = _input.y * mouseSensitivity;
+        float mouseX = _input.x * mouseSensitivity * Time.deltaTime;
+        float mouseY = _input.y * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); //Prevents infinite rotation
 
-        yRotation += mouseX;
-
-        //currently this just moves the transform, which would be the camera right now
-        //should this be changed to rotate the graphics object or maybe the entire player object?
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        body.Rotate(Vector3.up * mouseX);
     }
 
     private void OnEnable()

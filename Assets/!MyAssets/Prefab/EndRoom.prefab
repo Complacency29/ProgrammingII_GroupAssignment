@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1935966687993325045}
   - component: {fileID: 1935966687993325050}
   m_Layer: 6
-  m_Name: Module Room 2
+  m_Name: EndRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

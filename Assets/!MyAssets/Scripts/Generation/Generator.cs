@@ -16,9 +16,12 @@ namespace ModuleSnapping
         [SerializeField] private bool inProgress = false; //Stores if we are already generating a map, will switch to false when we are finished
         [SerializeField] private bool lastRoomGenerated = false; //Stores if we have generated the last room
 
-        [SerializeField] bool clearingInProgress = false;
+        [SerializeField] private bool clearingInProgress = false;
 
-        [SerializeField] String lastModule = "";
+        private String lastModule = "";
+
+        [SerializeField] private String startPointName;
+        [SerializeField] private String endPointName;
 
         private void Start()
         {
@@ -137,11 +140,15 @@ namespace ModuleSnapping
 
                             //Debug.Log(loadedModules[loadedModules.Count - 1].ToString());
 
-                            if (loadedModules[loadedModules.Count - 1].ToString() == "Module Room 2(Clone) (ModuleSnapping.Module)")
+                            if (loadedModules[loadedModules.Count - 1].ToString() == $"{endPointName}(Clone) (ModuleSnapping.Module)")
                             {
                                 lastRoomGenerated = true;
-
                             }
+
+                            /*if (loadedModules[loadedModules.Count - 1].ToString() == "Module Room 2(Clone) (ModuleSnapping.Module)")
+                            {
+                                lastRoomGenerated = true;
+                            }*/
 
                             break;
                         }
@@ -207,7 +214,7 @@ namespace ModuleSnapping
 
                 for (int x = 0; x < curModule.GetModuleTypes.Length; x++)
                 {
-                    if (curModule.GetModuleTypes[x] == validType && curModule.ToString() != "Module Room 2")
+                    if (curModule.GetModuleTypes[x] == validType && curModule.ToString() != endPointName)
                     {
                         validChoices.Add(curModuleObject);
                     }

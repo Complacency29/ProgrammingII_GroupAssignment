@@ -9,5 +9,6 @@ namespace ModuleSnapping
     {
         public GameObject[] startingModules;
         public GameObject[] allModules;
+        public GameObject[] endModules;
     }
 }

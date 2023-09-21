@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064612972404006686}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,6 +506,10 @@ PrefabInstance:
     - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_Name
       value: DG_GroundTile_D (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4505406664256555577, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_RootOrder
@@ -1189,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DG_GroundTile_D (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4505406664256555577, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1375,6 +1383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DG_GroundTile_D (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4505406664256555577, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1437,6 +1449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DG_GroundTile_D
       objectReference: {fileID: 0}
+    - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4505406664256555577, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1498,6 +1514,10 @@ PrefabInstance:
     - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_Name
       value: DG_GroundTile_D (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1667957481991631124, guid: dcae495ccaabafd44977b85885d02022, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4505406664256555577, guid: dcae495ccaabafd44977b85885d02022, type: 3}
       propertyPath: m_RootOrder

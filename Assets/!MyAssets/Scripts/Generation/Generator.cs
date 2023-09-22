@@ -121,6 +121,8 @@ namespace ModuleSnapping
                             collisionFound = newModule.CollisionCheck();
                             if(collisionFound == true)
                             {
+                                //Debug.Log("Collision found.");
+                                //Debug.Log(newModule.gameObject.ToString());
                                 Destroy(newModule.gameObject);
                                 break;
                             }
@@ -155,6 +157,7 @@ namespace ModuleSnapping
                         }
                     }
                 }
+
 
                 //Add new connections to the pendingConnections list and uptick the iteration index
                 pendingConnections = newConnections;

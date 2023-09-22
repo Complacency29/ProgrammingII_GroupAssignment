@@ -77,19 +77,19 @@ namespace ModuleSnapping
                     return true;
             }
 
-            //if we make it here, no collisions were found
+            //If we make it here, no collisions were found
             return false;
         }
 
         private void OnDrawGizmos()
         {
-            //if draw gizmos is set to false, do nothing
+            //If draw gizmos is set to false, do nothing
             if (_drawGizmos == false)
                 return;
 
             Gizmos.matrix = transform.localToWorldMatrix;
 
-            //ensure half size is ready for use
+            //Ensure half size is ready for use
             InitHalfSize();
 
             //Draw a wirecube the size of the colliders bounds, of the selected color
@@ -118,6 +118,7 @@ namespace ModuleSnapping
     {
         Room,
         Hallway,
-        StartPoint
+        StartPoint,
+        GroundProp
     }
 }

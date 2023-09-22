@@ -156,6 +156,7 @@ namespace ModuleSnapping
                     }
                 }
 
+
                 //Add new connections to the pendingConnections list and uptick the iteration index
                 pendingConnections = newConnections;
                 iteration++;

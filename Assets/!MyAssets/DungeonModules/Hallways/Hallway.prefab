@@ -158,7 +158,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6243643162135748104}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2.5, z: 14}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6243643162357939564}
   - component: {fileID: 6243643162357939565}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connection Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12e427d3c29acf40aa0bbec89c0a38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validConnections: 0000000001000000
+  validConnections: 00000000
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6243643162629938028}
   - component: {fileID: 6243643162629938029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connection Point (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12e427d3c29acf40aa0bbec89c0a38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validConnections: 0000000001000000
+  validConnections: 00000000
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0

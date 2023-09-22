@@ -227,7 +227,7 @@ MonoBehaviour:
   lastRoomGenerated: 0
   clearingInProgress: 0
   startPointName: StartRoom
-  endPointName: EndRoom
+  endPointName: ExitRoom
 --- !u!4 &458824107
 Transform:
   m_ObjectHideFlags: 0

@@ -26,3 +26,5 @@ MonoBehaviour:
   - {fileID: 4163034507164031569, guid: 0eb5bfbb7f99a094a85b5457b7725507, type: 3}
   endModules:
   - {fileID: 1155590559974986366, guid: 6716fa019d7449b49b90460c4a61d315, type: 3}
+  capModules:
+  - {fileID: 4586216016906226851, guid: 8ab985d81dcaa0c46b7653c9dd653e96, type: 3}

@@ -18,6 +18,7 @@ namespace ModuleSnapping
         [SerializeField] private bool inProgress = false; //Stores if we are already generating a map, will switch to false when we are finished
         [SerializeField] private bool lastRoomGenerated = false; //Stores if we have generated the last room
 
+        private List<Connection> allPendingConnections;
 
         private bool clearingInProgress = false;
 
@@ -189,6 +190,33 @@ namespace ModuleSnapping
                 yield return new WaitForSeconds(.1f);
                 ClearModules();
             }
+            else
+            {
+                Debug.Log("Capping unused connections");
+                //we generated the last room, so cap the unused connections
+                //CapUnusedConnections(pendingConnections);
+                for (int i = 0; i < pendingConnections.Count; i++)
+                {
+                    if (pendingConnections[i].CapIfUnused == false || pendingConnections[i] != null)
+                    {
+                        //we don't want to cap this connection
+                        Debug.Log("This connection should not be capped: " + pendingConnections[i].name);
+                    }
+                    else
+                    {
+                        //generate a random number
+                        int rng = UnityEngine.Random.Range(0, tileset.capModules.Length);
+
+                        //spawn a cap module of index rng
+                        GameObject capPrefab = Instantiate(tileset.capModules[rng]);
+                        capPrefab.transform.parent = transform;
+                        Module newModule = capPrefab.GetComponent<Module>();
+                        Connection[] newModuleConnections = newModule.GetConnections;
+                        Connection exitToMatch = newModuleConnections[0];
+                        MatchExits(pendingConnections[i], exitToMatch);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -267,7 +295,7 @@ namespace ModuleSnapping
 
             if (validChoices.Count > 0)
             {
-                return validChoices[UnityEngine.Random.Range(0, validChoices.Count - 1)];
+                return validChoices[UnityEngine.Random.Range(0, validChoices.Count)];
             }
             else
             {
@@ -306,6 +334,33 @@ namespace ModuleSnapping
             }
             clearingInProgress = false;
             StartCoroutine(GenerateEnvironment());
+        }
+
+        void CapUnusedConnections(List<Connection> _connections)
+        {
+            Debug.Log("Capping unused connections");
+            allPendingConnections = _connections;
+
+            for (int i = 0; i < _connections.Count; i++)
+            {
+                if (_connections[i].CapIfUnused == false)
+                {
+                    //we don't want to cap this connection
+                    Debug.Log("This connection should not be capped: " + _connections[i].name);
+                    continue;
+                }
+
+                //generate a random number
+                int rng = UnityEngine.Random.Range(0, tileset.capModules.Length);
+
+                //spawn a cap module of index rng
+                GameObject capPrefab = Instantiate(tileset.capModules[rng]);
+                capPrefab.transform.parent = transform;
+                Module newModule = capPrefab.GetComponent<Module>();
+                Connection[] newModuleConnections = newModule.GetConnections;
+                Connection exitToMatch = newModuleConnections.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnections);
+                MatchExits(_connections[i], exitToMatch);
+            }
         }
     }
 }

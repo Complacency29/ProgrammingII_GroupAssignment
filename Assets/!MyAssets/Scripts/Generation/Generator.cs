@@ -11,10 +11,15 @@ namespace ModuleSnapping
         [SerializeField] private Tileset tileset; //Stores all modules that can be used in X area
         [SerializeField] private uint maxIterations; //Stores how many times the process can repeat, dictates map size1
         [SerializeField] private uint maxAttempts; //Stores max amount of times a module can try to be connected to another module
+
+        [Header("Debugging")]
+        [SerializeField] bool runOnStart = false;
+        [SerializeField] bool useSlowGen = false;
         [SerializeField] private bool inProgress = false; //Stores if we are already generating a map, will switch to false when we are finished
         [SerializeField] private bool lastRoomGenerated = false; //Stores if we have generated the last room
 
-        [SerializeField] private bool clearingInProgress = false;
+
+        private bool clearingInProgress = false;
 
         private String lastModule = "";
 
@@ -23,7 +28,8 @@ namespace ModuleSnapping
 
         private void Start()
         {
-            //GenerateModules(); 
+            if (runOnStart)
+                GenerateModules();
         }
 
         public void GenerateModules()
@@ -37,23 +43,22 @@ namespace ModuleSnapping
             if (transform.childCount == 0)
             {
                 //No dungeon already exists, so generate a dungeon and return out of this method
-                inProgress = true;
                 StartCoroutine(GenerateEnvironment());
                 return;
             }
             else if(clearingInProgress == false)
             {
-                //We have a dungeon, and clearing is NOT already in progress
                 clearingInProgress = true;
                 ClearModules();
+                //GenerateModules();
             }
-
-            //if we made it here, we haven't started making a dungeon. Try again
-            GenerateModules();
         }
 
         private IEnumerator GenerateEnvironment()
         {
+            inProgress = true;
+
+
             //create a list to store all modules we load, and choose a random starting module
             List<Module> loadedModules = new List<Module>();
             int startingModuleRNG = UnityEngine.Random.Range(0, tileset.startingModules.Length);
@@ -80,6 +85,9 @@ namespace ModuleSnapping
                 //Loop through all the connections that have been confirmed and are in the pendingConnections list
                 for (int connectionIndex = 0; connectionIndex < pendingConnections.Count; connectionIndex++)
                 {
+                    if (lastRoomGenerated)
+                        break;
+
                     //Check if there is a connection at this index and if it is active 
                     if (pendingConnections[connectionIndex] == null || pendingConnections[connectionIndex].isActiveAndEnabled == false)
                     {
@@ -116,9 +124,11 @@ namespace ModuleSnapping
                         bool collisionFound = false;
 
                         //Wait a frame to ensure module is in position
-                        
-                        yield return new WaitForSeconds(0.5f);          // SLOW GEN
-                        //yield return null;                              // FAST GEN
+
+                        if (useSlowGen)
+                            yield return new WaitForSeconds(0.5f);          // SLOW GEN
+                        else
+                            yield return null;
                         
                         //Check if there has been a collision
                         //If so, remove the new module and try again
@@ -163,16 +173,6 @@ namespace ModuleSnapping
                 //Add new connections to the pendingConnections list and uptick the iteration index
                 pendingConnections = newConnections;
 
-                //check that the last room has been generated
-                if (loadedModules[loadedModules.Count - 1].ToString() == $"{endPointName}(Clone) (ModuleSnapping.Module)")
-                {
-                    lastRoomGenerated = true;
-                }
-                else
-                {
-                    lastRoomGenerated = false;
-                }
-
                 iteration++;
 
             }
@@ -186,7 +186,8 @@ namespace ModuleSnapping
             if(lastRoomGenerated == false)
             {
                 Debug.Log("The last room was not generated.");
-                //GenerateModules();
+                yield return new WaitForSeconds(.1f);
+                ClearModules();
             }
         }
 
@@ -294,10 +295,9 @@ namespace ModuleSnapping
         /// </summary>
         private void ClearModules()
         {
-            //if clearing in progress or there is already no children
-            if(clearingInProgress || transform.childCount == 0)
+            //if in progress or there is already no children
+            if (inProgress || transform.childCount == 0)
             {
-                //GenerateModules();
                 return;
             }
             foreach (Transform item in transform)
@@ -305,7 +305,7 @@ namespace ModuleSnapping
                 Destroy(item.gameObject);
             }
             clearingInProgress = false;
-            //StartCoroutine(GenerateEnvironment());
+            StartCoroutine(GenerateEnvironment());
         }
     }
 }

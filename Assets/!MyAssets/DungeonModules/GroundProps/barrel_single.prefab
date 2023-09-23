@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4119502892520387491}
   - component: {fileID: 4059329717902479311}
   - component: {fileID: 35677975893679499}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: barrel_single
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   roomBoundsCollider: {fileID: 4119502892520387491}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   ignoreCollision: 1
   _drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}

@@ -2,9 +2,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEditor.Experimental.GraphView;
 
 namespace ModuleSnapping
 {
@@ -20,71 +18,75 @@ namespace ModuleSnapping
 
         private String lastModule = "";
 
-        [SerializeField] private String startPointName;
+        //[SerializeField] private String startPointName;
         [SerializeField] private String endPointName;
 
         private void Start()
         {
-            GenerateModules();
+            //GenerateModules(); 
         }
 
         public void GenerateModules()
         {
-            lastRoomGenerated = false;
-
             if (inProgress) //we're already generating a map, so don't make another one
                 return;
 
-            //if (clearingInProgress)
-                //StartCoroutine(GenerateEnvironment());
+            lastRoomGenerated = false;
 
             //ensure there is no other maps generated already
             if (transform.childCount == 0)
             {
+                //No dungeon already exists, so generate a dungeon and return out of this method
+                inProgress = true;
                 StartCoroutine(GenerateEnvironment());
+                return;
             }
             else if(clearingInProgress == false)
             {
+                //We have a dungeon, and clearing is NOT already in progress
                 clearingInProgress = true;
                 ClearModules();
-                //GenerateModules();
             }
+
+            //if we made it here, we haven't started making a dungeon. Try again
+            GenerateModules();
         }
 
         private IEnumerator GenerateEnvironment()
         {
-            inProgress = true; //set this to true first to prevent the program tripping over itself
-
-            List<Module> loadedModules = new List<Module>(); //stores all modules that have been made and confirmed
+            //create a list to store all modules we load, and choose a random starting module
+            List<Module> loadedModules = new List<Module>();
             int startingModuleRNG = UnityEngine.Random.Range(0, tileset.startingModules.Length);
 
-            //Spawn a new module of the randomly selected type
-            //Then set it as a child of this transform
+            //Spawn the starting module as a prefab and make it a child of the generator
             GameObject startingModulePrefab = Instantiate(tileset.startingModules[startingModuleRNG]);
             startingModulePrefab.transform.parent = transform;
 
-            //Get the starting module prefab, add it to the loadedModules list, get all connections assigned to that module
-            //Save the list of pending connections so we can add other connections to this list later
+            //Add the module component of the starting module to the loaded modules list
             Module startingModule = startingModulePrefab.GetComponent<Module>();
             loadedModules.Add(startingModule);
+
+            //Create a list to store the pending connections, and for now add the connection points on the starting module
             List<Connection> pendingConnections = new List<Connection>(startingModule.GetConnections);
 
-            // set our iterations index to 0 for the start
+            // set our iterations index to 0 for the first iteration
             int iteration = 0;
 
-            while(iteration < maxIterations && lastRoomGenerated == false) //this code will loop until we hit the max iterations number
+            while(iteration < maxIterations) //this code will loop until we hit the max iterations number
             {
-                //This is where we will store the connections for the new modules that have been made
+                //Create a new list to store all new connections
                 List<Connection> newConnections = new List<Connection>();
 
                 //Loop through all the connections that have been confirmed and are in the pendingConnections list
-                for (int exitIndex = 0; exitIndex < pendingConnections.Count; exitIndex++)
+                for (int connectionIndex = 0; connectionIndex < pendingConnections.Count; connectionIndex++)
                 {
-                    //Sanity check to make sure we are not using an empty value
-                    if (pendingConnections[exitIndex] == null || pendingConnections[exitIndex].isActiveAndEnabled == false)
+                    //Check if there is a connection at this index and if it is active 
+                    if (pendingConnections[connectionIndex] == null || pendingConnections[connectionIndex].isActiveAndEnabled == false)
                     {
+                        //If we end up here, there is either no connection at this index OR the connection is not active
                         continue;
                     }
+
                     //Loops until there is a successful module created and connected, OR we reach our maximum attempts
                     for (int curAttempt = 0; curAttempt < maxAttempts; curAttempt++)
                     {
@@ -92,7 +94,11 @@ namespace ModuleSnapping
                         //Put into position with correct rotation
                         //If it fits, it sits
                         //If it doesn't fit, try again, that is one attempt.
-                        ModuleType validType = GetRandom(pendingConnections[exitIndex].GetValidConnections);
+
+                        //Get a random valid connection type from the given connection
+                        ModuleType validType = GetRandom(pendingConnections[connectionIndex].GetValidConnections);
+
+                        //create a variable to store the prefab, and get a module of the given type
                         GameObject newModulePrefab = GetModulePrefabOfType(validType, iteration, lastModule);
 
                         lastModule = newModulePrefab.ToString();
@@ -103,7 +109,7 @@ namespace ModuleSnapping
                         Module newModule = prefab.GetComponent<Module>();
                         Connection[] newModuleConnections = newModule.GetConnections;
                         Connection exitToMatch = newModuleConnections.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnections);
-                        MatchExits(pendingConnections[exitIndex], exitToMatch);
+                        MatchExits(pendingConnections[connectionIndex], exitToMatch);
                         newConnections.AddRange(newModuleConnections.Where(e => e != exitToMatch));
 
                         //Will store if a collision is found
@@ -111,8 +117,8 @@ namespace ModuleSnapping
 
                         //Wait a frame to ensure module is in position
                         
-                        //yield return new WaitForSeconds(0.5f);          // SLOW GEN
-                        yield return null;                              // FAST GEN
+                        yield return new WaitForSeconds(0.5f);          // SLOW GEN
+                        //yield return null;                              // FAST GEN
                         
                         //Check if there has been a collision
                         //If so, remove the new module and try again
@@ -131,47 +137,56 @@ namespace ModuleSnapping
                         //Sanity check, should not be needed, but makes sure that no collision took place
                         if (collisionFound == true)
                         {
+                            //The element did not fit
                             Debug.Log("Removed odd element.");
                             Destroy(newModule.gameObject);
                         }
                         else
                         {
+                            if(iteration == maxIterations - 1)
+                            {
+                                lastRoomGenerated = true;
+                                break;
+                            }
+
                             //the new module fits with no issues, so turn off the connections and add the new module to the loadedModules list
-                            pendingConnections[exitIndex].gameObject.SetActive(false); //turns off the connection point so it cannot be used again
+                            pendingConnections[connectionIndex].gameObject.SetActive(false);
                             exitToMatch.gameObject.SetActive(false);
                             loadedModules.Add(newModule);
 
                             //Debug.Log(loadedModules[loadedModules.Count - 1].ToString());
-
-                            if (loadedModules[loadedModules.Count - 1].ToString() == $"{endPointName}(Clone) (ModuleSnapping.Module)")
-                            {
-                                lastRoomGenerated = true;
-                            }
-
-                            /*if (loadedModules[loadedModules.Count - 1].ToString() == "Module Room 2(Clone) (ModuleSnapping.Module)")
-                            {
-                                lastRoomGenerated = true;
-                            }*/
-
                             break;
                         }
                     }
                 }
 
-
                 //Add new connections to the pendingConnections list and uptick the iteration index
                 pendingConnections = newConnections;
+
+                //check that the last room has been generated
+                if (loadedModules[loadedModules.Count - 1].ToString() == $"{endPointName}(Clone) (ModuleSnapping.Module)")
+                {
+                    lastRoomGenerated = true;
+                }
+                else
+                {
+                    lastRoomGenerated = false;
+                }
+
                 iteration++;
+
             }
+
+            //we've completed our iterations, now we can try to place the last room
+            //go through all pending connections and try to place the last room.
+            //attempt to place a room module from the
+
+
             inProgress = false;
-
-            //yield return new WaitForSeconds(0.1f);
-
             if(lastRoomGenerated == false)
             {
-                //ClearModules();
-                ClearModules();
-                
+                Debug.Log("The last room was not generated.");
+                //GenerateModules();
             }
         }
 
@@ -208,36 +223,55 @@ namespace ModuleSnapping
         /// <returns></returns>
         private GameObject GetModulePrefabOfType(ModuleType validType, int iteration, String lastModule)
         {
-
+            //create a list to store all our valid choices for modules
             List<GameObject> validChoices = new List<GameObject>();
 
-            for (int i = 0; i < tileset.allModules.Length; i++)
+            //check if we are on the last iteration
+            if(iteration >= maxIterations - 1)
             {
-                GameObject curModuleObject = tileset.allModules[i];
-                Module curModule = curModuleObject.GetComponent<Module>();
-
-                for (int x = 0; x < curModule.GetModuleTypes.Length; x++)
+                //This code is for the last iteration
+                for (int i = 0; i < tileset.endModules.Length; i++)
                 {
-                    if (curModule.GetModuleTypes[x] == validType && curModule.ToString() != endPointName)
+
+                    validType = ModuleType.Room;
+                    GameObject curModuleObject = tileset.endModules[i];
+                    Module curModule = curModuleObject.GetComponent<Module>();
+
+                    for (int x = 0; x < curModule.GetModuleTypes.Length; x++)
                     {
-                        validChoices.Add(curModuleObject);
+                        if (curModule.GetModuleTypes[x] == validType)
+                        {
+                            validChoices.Add(curModuleObject);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //This code is for all other iterations
+                for (int i = 0; i < tileset.allModules.Length; i++)
+                {
+                    GameObject curModuleObject = tileset.allModules[i];
+                    Module curModule = curModuleObject.GetComponent<Module>();
+
+                    for (int x = 0; x < curModule.GetModuleTypes.Length; x++)
+                    {
+                        if (curModule.GetModuleTypes[x] == validType)
+                        {
+                            validChoices.Add(curModuleObject);
+                        }
                     }
                 }
             }
 
-            if((iteration == maxIterations - 1) && lastModule == "Hallway (UnityEngine.GameObject)")
+            if (validChoices.Count > 0)
             {
-                //lastRoomGenerated = true;
-
-                return tileset.endModules[UnityEngine.Random.Range(0, tileset.endModules.Length - 1)];
-                //return tileset.allModules[tileset.allModules.Length - 1];
-                
-                //return validChoices[validChoices.Count - 1];
+                return validChoices[UnityEngine.Random.Range(0, validChoices.Count - 1)];
             }
             else
             {
-                //Debug.Log(lastModule.ToString());
-                return validChoices[UnityEngine.Random.Range(0, validChoices.Count - 1)];
+                Debug.Log("No valid choices found.");
+                return null;
             }
         }
 
@@ -260,10 +294,10 @@ namespace ModuleSnapping
         /// </summary>
         private void ClearModules()
         {
-            //if in progress or there is already no children
-            if(inProgress || transform.childCount == 0)
+            //if clearing in progress or there is already no children
+            if(clearingInProgress || transform.childCount == 0)
             {
-                GenerateModules();
+                //GenerateModules();
                 return;
             }
             foreach (Transform item in transform)
@@ -271,7 +305,7 @@ namespace ModuleSnapping
                 Destroy(item.gameObject);
             }
             clearingInProgress = false;
-            StartCoroutine(GenerateEnvironment());
+            //StartCoroutine(GenerateEnvironment());
         }
     }
 }

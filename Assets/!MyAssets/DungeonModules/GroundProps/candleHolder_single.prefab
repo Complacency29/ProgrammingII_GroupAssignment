@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860954451027019691}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.830973, y: -8.421601, z: -26.152761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -193,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 496950209, guid: d357f7729e4db234fa9ed72a762fb1ce, type: 3}
       propertyPath: m_Name
       value: BigCandles_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 496950210, guid: d357f7729e4db234fa9ed72a762fb1ce, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 667033729184526641, guid: d357f7729e4db234fa9ed72a762fb1ce, type: 3}
       propertyPath: m_RootOrder

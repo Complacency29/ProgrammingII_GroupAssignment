@@ -231,8 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileset: {fileID: 11400000, guid: 401d7936159d06143a0117bba9439d49, type: 2}
-  maxIterations: 30
-  maxAttempts: 100
+  maxIterations: 20
+  maxAttempts: 50
   runOnStart: 1
   useSlowGen: 0
   inProgress: 0

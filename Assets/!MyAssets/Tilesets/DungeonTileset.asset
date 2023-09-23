@@ -33,3 +33,5 @@ MonoBehaviour:
   - {fileID: 7948162810759639937, guid: cf6ef452ea4706a4ab808bb008d648db, type: 3}
   endModules:
   - {fileID: 1155590559974986366, guid: 6716fa019d7449b49b90460c4a61d315, type: 3}
+  capModules:
+  - {fileID: 4586216016906226851, guid: 8ab985d81dcaa0c46b7653c9dd653e96, type: 3}

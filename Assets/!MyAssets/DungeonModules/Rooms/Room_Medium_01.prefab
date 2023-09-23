@@ -48,6 +48,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 0
 --- !u!1 &2521710258059187163
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 0
 --- !u!1 &5448170588047860271
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +146,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 1
+  capIfUnused: 1
 --- !u!1 &6175309338416499311
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +508,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 0
 --- !u!1 &8570008330721232523
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +557,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 0
 --- !u!1 &8979529181079395005
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +606,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 1
+  capIfUnused: 1
 --- !u!1001 &6175309338322668728
 PrefabInstance:
   m_ObjectHideFlags: 0

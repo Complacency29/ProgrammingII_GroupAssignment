@@ -12,9 +12,11 @@ namespace ModuleSnapping
         [SerializeField, Range(1, 5)] private float gizmoScale = 1f; // Sets length of the gizmo lines
         [SerializeField, Range(0, 1)] private float gizmoSphereRelativeSize = .2f; // Sets size of the gizmo sphere RELATIVE to the gizmo scale
         [SerializeField] private bool isDefault;
+        [SerializeField] bool capIfUnused = true;
 
         public ModuleType[] GetValidConnections { get { return validConnections; } } // a getter property for the validConnections
         public bool IsDefault { get { return isDefault; } }
+        public bool CapIfUnused { get { return capIfUnused; } }
 
         private void OnDrawGizmos()
         {

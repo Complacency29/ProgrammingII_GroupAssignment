@@ -221,13 +221,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileset: {fileID: 11400000, guid: 401d7936159d06143a0117bba9439d49, type: 2}
-  maxIterations: 20
+  maxIterations: 10
   maxAttempts: 10
   inProgress: 0
   lastRoomGenerated: 0
+  block: {fileID: 5005489614768154000, guid: 7a55a0b4d96b5064392107258329e96b, type: 3}
   clearingInProgress: 0
   startPointName: StartRoom
   endPointName: EndRoom
+  pendingConnections: []
 --- !u!4 &458824107
 Transform:
   m_ObjectHideFlags: 0

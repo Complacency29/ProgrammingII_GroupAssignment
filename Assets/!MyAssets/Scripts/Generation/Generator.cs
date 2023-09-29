@@ -15,6 +15,7 @@ namespace ModuleSnapping
         [SerializeField] private uint maxAttempts; //Stores max amount of times a module can try to be connected to another module
         [SerializeField] private bool inProgress = false; //Stores if we are already generating a map, will switch to false when we are finished
         [SerializeField] private bool lastRoomGenerated = false; //Stores if we have generated the last room
+        [SerializeField] private GameObject block;
 
         [SerializeField] private bool clearingInProgress = false;
 
@@ -22,6 +23,9 @@ namespace ModuleSnapping
 
         [SerializeField] private String startPointName;
         [SerializeField] private String endPointName;
+
+        [SerializeField] List<Connection> pendingConnections = new List<Connection>();
+        [SerializeField] List<Connection> allConnections = new List<Connection>();
 
         private void Start()
         {
@@ -67,7 +71,9 @@ namespace ModuleSnapping
             //Save the list of pending connections so we can add other connections to this list later
             Module startingModule = startingModulePrefab.GetComponent<Module>();
             loadedModules.Add(startingModule);
-            List<Connection> pendingConnections = new List<Connection>(startingModule.GetConnections);
+            //List<Connection> pendingConnections = new List<Connection>(startingModule.GetConnections);
+            pendingConnections = new List<Connection>(startingModule.GetConnections);
+
 
             // set our iterations index to 0 for the start
             int iteration = 0;
@@ -111,8 +117,8 @@ namespace ModuleSnapping
 
                         //Wait a frame to ensure module is in position
                         
-                        //yield return new WaitForSeconds(0.5f);          // SLOW GEN
-                        yield return null;                              // FAST GEN
+                        yield return new WaitForSeconds(0.1f);          // SLOW GEN
+                        //yield return null;                              // FAST GEN
                         
                         //Check if there has been a collision
                         //If so, remove the new module and try again
@@ -144,6 +150,7 @@ namespace ModuleSnapping
                             if (loadedModules[loadedModules.Count - 1].ToString() == $"{endPointName}(Clone) (ModuleSnapping.Module)")
                             {
                                 lastRoomGenerated = true;
+
                             }
 
                             /*if (loadedModules[loadedModules.Count - 1].ToString() == "Module Room 2(Clone) (ModuleSnapping.Module)")
@@ -157,9 +164,25 @@ namespace ModuleSnapping
                 }
 
                 //Add new connections to the pendingConnections list and uptick the iteration index
+                allConnections.AddRange(pendingConnections);
                 pendingConnections = newConnections;
                 iteration++;
             }
+
+
+            yield return null;
+
+            allConnections.AddRange(pendingConnections);
+
+            foreach (Connection con in allConnections)
+            {
+                if (con != null && con.isActiveAndEnabled == true)
+                {
+                    Instantiate(block, con.transform);
+                    //Debug.Log($"Block generated at ({con.transform.position.x}, {con.transform.position.y}, {con.transform.position.z})");
+                }
+            }
+
             inProgress = false;
 
             //yield return new WaitForSeconds(0.1f);

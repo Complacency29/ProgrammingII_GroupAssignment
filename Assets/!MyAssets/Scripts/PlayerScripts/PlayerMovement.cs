@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] Transform groundChecker;
+    [SerializeField] Animator animator;
 
     CharacterController characterController;
     InputMaster controls;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        //animator = GetComponent<Animator>();
 
         controls = new InputMaster();
         //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
@@ -45,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         //Movement gubbins
         Vector2 input = controls.PlayerMovement.Move.ReadValue<Vector2>();
         PlayerMove(input);
+        AnimationController(input);
 
         //Jump gubbins
         //if we are pressing the jump button AND we are grounded
@@ -65,7 +68,21 @@ public class PlayerMovement : MonoBehaviour
 
         characterController.Move(movement * baseMoveSpeed * Time.deltaTime);
     }
-
+    void AnimationController(Vector2 _input)
+    {
+        if(_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
+        {
+            animator.SetBool("moving", true);
+            animator.SetFloat("inputX", _input.x);
+            animator.SetFloat("inputY", _input.y);
+        }
+        else
+        {
+            animator.SetBool("moving", false);
+            animator.SetFloat("inputX", 0);
+            animator.SetFloat("inputY", 0);
+        }
+    }
     private void OnEnable()
     {
         controls.Enable();

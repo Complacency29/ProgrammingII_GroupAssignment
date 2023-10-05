@@ -6,6 +6,8 @@ using UnityEngine;
 public class FirstPersonCameraController : MonoBehaviour
 {
     [SerializeField, Range(.1f, 100f)] float mouseSensitivity = 2f;
+    [SerializeField, Range(0, 90)] float verticalClampUpLimit = 75f;
+    [SerializeField, Range(0, 90)] float verticalClampDownLimit = 75f;
     [SerializeField] Transform body;
     private float xRotation;
 
@@ -32,7 +34,7 @@ public class FirstPersonCameraController : MonoBehaviour
         float mouseY = _input.y * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); //Prevents infinite rotation
+        xRotation = Mathf.Clamp(xRotation, -verticalClampUpLimit, verticalClampDownLimit); //Prevents infinite rotation
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         body.Rotate(Vector3.up * mouseX);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3900041993767547905}
   - component: {fileID: 2508152101442689070}
   - component: {fileID: 2402733623515755170}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DG_GroundTile_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

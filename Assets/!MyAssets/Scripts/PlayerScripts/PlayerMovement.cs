@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField,Range(1,100)] float baseMoveSpeed = 10f;
+    [SerializeField, Range(1,100)] float baseMoveSpeed = 10f;
     [SerializeField, Range(.1f, 2f)] float jumpHeight = 2f;
     [SerializeField, Range(-50,0)] float gravity = -9.81f;
 
     [Header("Configuration Settings")]
-    [SerializeField,Range(0,1)] float groundCheckDistance = .4f;
+    [SerializeField, Range(0,1)] float groundCheckDistance = .4f;
     [SerializeField] LayerMask walkableLayers;
 
     [Header("Components")]

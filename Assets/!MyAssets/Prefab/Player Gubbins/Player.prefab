@@ -1216,6 +1216,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 691823237740546557}
     m_Modifications:
+    - target: {fileID: 1114797603325249441, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilBurnRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: maxLanternBrightness
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957649, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_Name
       value: Lantern
@@ -1226,7 +1242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957651, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957651, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1234,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957651, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957651, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_LocalRotation.w

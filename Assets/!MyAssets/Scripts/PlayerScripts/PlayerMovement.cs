@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,14 +22,21 @@ public class PlayerMovement : MonoBehaviour
     InputMaster controls;
     Vector3 velocity;
     bool isGrounded = true;
+    private PhotonView _photonView;
 
     private void Awake()
     {
+        _photonView = GetComponent<PhotonView>();
         characterController = GetComponent<CharacterController>();
         //animator = GetComponent<Animator>();
 
         controls = new InputMaster();
         //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
+
+        if (_photonView.IsMine)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     private void Update()

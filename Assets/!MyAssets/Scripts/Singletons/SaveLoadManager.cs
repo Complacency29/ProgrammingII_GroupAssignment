@@ -6,7 +6,7 @@ using UnityEngine;
 /// This manager will exist in scene on an empty game object
 /// It can be called to save or load player data.
 /// </summary>
-public class SaveLoadManager : MonoBehaviour
+public class SaveLoadManager : MonoBehaviorSingleton<SaveLoadManager>
 {
     [SerializeField] PlayerInventory inventoryToSave;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ModuleSnapping
 {
-    public class Generator : SingletonMonoBehavior<Generator>
+    public class Generator : MonoBehaviorSingleton<Generator>
     {
         [SerializeField] private Tileset tileset; //Stores all modules that can be used in X area
         [SerializeField] private uint maxIterations; //Stores how many times the process can repeat, dictates map size1

@@ -88,6 +88,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 1
 --- !u!1 &3227619157081190543
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
+  capIfUnused: 1
 --- !u!1 &3227619157268302295
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +192,8 @@ GameObject:
   - component: {fileID: 3227619157268302290}
   - component: {fileID: 3227619157268302289}
   - component: {fileID: 3227619157268302288}
+  - component: {fileID: -5699798325823080978}
+  - component: {fileID: -4756826548882418435}
   m_Layer: 6
   m_Name: EndRoom
   m_TagString: Untagged
@@ -248,6 +252,45 @@ MonoBehaviour:
   ignoreCollision: 0
   _drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &-5699798325823080978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227619157268302295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 2
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -4756826548882418435}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-4756826548882418435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227619157268302295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &3227619157302929032
 GameObject:
   m_ObjectHideFlags: 0

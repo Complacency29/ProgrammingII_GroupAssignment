@@ -20,19 +20,26 @@ namespace ModuleSnapping
         [SerializeField] Transform groundChecker;
         [SerializeField] Animator animator;
 
-        CharacterController characterController;
-        InputMaster controls;
-        Vector3 velocity;
-        bool isGrounded = true;
+    CharacterController characterController;
+    InputMaster controls;
+    Vector3 velocity;
+    bool isGrounded = true;
+    private PhotonView _photonView;
 
-        private void Awake()
+    private void Awake()
+    {
+        _photonView = GetComponent<PhotonView>();
+        characterController = GetComponent<CharacterController>();
+        //animator = GetComponent<Animator>();
+
+        controls = new InputMaster();
+        //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
+
+        if (_photonView.IsMine)
         {
-            characterController = GetComponent<CharacterController>();
-            //animator = GetComponent<Animator>();
-
-            controls = new InputMaster();
-            //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
+            animator = GetComponent<Animator>();
         }
+    }
 
         private void Start()
         {

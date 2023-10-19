@@ -7,7 +7,7 @@ using Photon.Pun;
 
 namespace ModuleSnapping
 {
-    public class Generator : SingletonMonoBehavior<Generator>
+    public class Generator : MonoBehaviorSingleton<Generator>
     {
         [SerializeField] private int seed;
         [SerializeField] private int lastPlayerCount = 1;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class FirstPersonCameraController : MonoBehaviour
     [SerializeField, Range(0, 90)] float verticalClampDownLimit = 75f;
     [SerializeField] Transform body;
     private float xRotation;
+
+    private PhotonView _photonView;
+    private Camera _camera;
 
     InputMaster controls;
 
@@ -23,7 +27,13 @@ public class FirstPersonCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _photonView = GetComponentInParent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (!_photonView.IsMine)
+        {
+            _camera.enabled = false;
+        }
     }
 
     void MouseLook(Vector2 _input)

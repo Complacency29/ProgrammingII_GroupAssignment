@@ -262,8 +262,6 @@ GameObject:
   - component: {fileID: 6175309339315394157}
   - component: {fileID: 6175309339315394156}
   - component: {fileID: 6175309339315394147}
-  - component: {fileID: -7202574864411388966}
-  - component: {fileID: -2677509451208343838}
   m_Layer: 6
   m_Name: Room_Medium_01
   m_TagString: Untagged
@@ -326,45 +324,6 @@ MonoBehaviour:
   ignoreCollision: 0
   _drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &-7202574864411388966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6175309339315394146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 2
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: -2677509451208343838}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &-2677509451208343838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6175309339315394146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &6175309339765901324
 GameObject:
   m_ObjectHideFlags: 0

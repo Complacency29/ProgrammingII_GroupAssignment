@@ -39,8 +39,14 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+<<<<<<< HEAD
   - UpdateAnimation
   - MoveRPC
+=======
+  - sendSeedRPC
+  - SendSeedRPC
+  - SetSeed
+>>>>>>> origin/main
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

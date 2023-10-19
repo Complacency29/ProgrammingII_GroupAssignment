@@ -147,8 +147,12 @@ GameObject:
   - component: {fileID: 691823237740546558}
   - component: {fileID: 691823237740546559}
   - component: {fileID: 3456743927603973618}
+<<<<<<< HEAD:Assets/!MyAssets/Prefab/Player Gubbins/Player.prefab
   - component: {fileID: 325195052}
   - component: {fileID: 325195054}
+=======
+  - component: {fileID: 1261722839128315597}
+>>>>>>> origin/main:Assets/Resources/Player.prefab
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -232,7 +236,11 @@ MonoBehaviour:
   maxPotions: 3
   maxLampOil: 100
   curGold: 0
+<<<<<<< HEAD:Assets/!MyAssets/Prefab/Player Gubbins/Player.prefab
 --- !u!114 &325195052
+=======
+--- !u!114 &1261722839128315597
+>>>>>>> origin/main:Assets/Resources/Player.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,6 +258,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
+<<<<<<< HEAD:Assets/!MyAssets/Prefab/Player Gubbins/Player.prefab
   ObservedComponents:
   - {fileID: 325195054}
   - {fileID: 651082339}
@@ -277,6 +286,12 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+=======
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+>>>>>>> origin/main:Assets/Resources/Player.prefab
 --- !u!1 &691823238600561946
 GameObject:
   m_ObjectHideFlags: 0

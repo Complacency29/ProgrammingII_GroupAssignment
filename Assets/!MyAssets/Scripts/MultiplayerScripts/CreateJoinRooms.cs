@@ -34,4 +34,8 @@ public class CreateJoinRooms : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("GeneratorScene");
     }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log(newPlayer + " has entered the room.");
+    }
 }

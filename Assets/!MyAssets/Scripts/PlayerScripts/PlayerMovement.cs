@@ -7,6 +7,9 @@ namespace ModuleSnapping
 {
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private PhotonView view;
+        [SerializeField] private Transform _camera;
+
         [Header("Movement Settings")]
         [SerializeField, Range(1, 100)] float baseMoveSpeed = 10f;
         [SerializeField, Range(.1f, 2f)] float jumpHeight = 2f;
@@ -36,14 +39,21 @@ namespace ModuleSnapping
 
         private void Start()
         {
-            /*Generator gen = FindObjectOfType<Generator>();
-            PhotonView view = GetComponent<PhotonView>();
+            view = GetComponent<PhotonView>();
 
-            gen.OnPhotonPlayerConnected(view.Owner);*/
+            if(!view.IsMine && _camera != null)
+            {
+                Destroy(_camera.gameObject);
+            }
         }
 
         private void Update()
         {
+            if(!view.IsMine)
+            {
+                return;
+            }
+
             isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckDistance, walkableLayers);
             if (isGrounded && velocity.y < 0)
             {
@@ -81,6 +91,11 @@ namespace ModuleSnapping
         }
         void AnimationController(Vector2 _input)
         {
+            if (!view.IsMine)
+            {
+                return;
+            }
+
             if (_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
             {
                 animator.SetBool("moving", true);

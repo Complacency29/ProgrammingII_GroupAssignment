@@ -283,6 +283,11 @@ namespace ModuleSnapping
                 //CapUnusedConnections(pendingConnections);
                 for (int i = 0; i < pendingConnections.Count; i++)
                 {
+                    if(pendingConnections[i] == null)
+                    {
+                        continue;
+                    }
+
                     if (pendingConnections[i].CapIfUnused == false || pendingConnections[i] != null)
                     {
                         //we don't want to cap this connection
@@ -409,6 +414,8 @@ namespace ModuleSnapping
         /// </summary>
         private void ClearModules()
         {
+            StopCoroutine(GenerateEnvironment());
+
             if (Photon.Pun.PhotonNetwork.IsMasterClient)
             {
                 if (inProgress || transform.childCount == 0)
@@ -420,7 +427,7 @@ namespace ModuleSnapping
 
                 for (int i = p.Length - 1; i >= 0; i--)
                 {
-                    if (p[i] != transform)
+                    if (p[i] != transform && p[i].GetComponent<PhotonView>())
                     {
                         Photon.Pun.PhotonNetwork.Destroy(p[i].gameObject);
                     }

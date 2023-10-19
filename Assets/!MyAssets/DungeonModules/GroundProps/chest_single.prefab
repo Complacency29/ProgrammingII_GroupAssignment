@@ -118,8 +118,6 @@ GameObject:
   - component: {fileID: 4221450957532762786}
   - component: {fileID: 4192809179252544430}
   - component: {fileID: 8139242547977698159}
-  - component: {fileID: 7311308490364661149}
-  - component: {fileID: 5587340266411253502}
   m_Layer: 7
   m_Name: chest_single
   m_TagString: Untagged
@@ -229,45 +227,6 @@ MonoBehaviour:
   ignoreCollision: 1
   _drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &7311308490364661149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4234156994867971170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 2
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 5587340266411253502}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &5587340266411253502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4234156994867971170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &4234337245598057442
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,4 +485,3 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
-  capIfUnused: 1

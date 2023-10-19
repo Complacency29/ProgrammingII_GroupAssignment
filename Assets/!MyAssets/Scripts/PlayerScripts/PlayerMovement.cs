@@ -5,6 +5,9 @@ using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] string playerName = "Player_01";
+    public string PlayerName { get { return playerName; } }
+
     [Header("Movement Settings")]
     [SerializeField, Range(1,100)] float baseMoveSpeed = 10f;
     [SerializeField, Range(.1f, 2f)] float jumpHeight = 2f;
@@ -16,33 +19,34 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] Transform groundChecker;
-    [SerializeField] Animator animator;
+    [SerializeField] Animator graphics;
 
     CharacterController characterController;
     InputMaster controls;
     Vector3 velocity;
     bool isGrounded = true;
-    private PhotonView _photonView;
+    private PhotonView photonView;
 
     private void Awake()
     {
-        _photonView = GetComponent<PhotonView>();
+        photonView = GetComponent<PhotonView>();
         characterController = GetComponent<CharacterController>();
-        //animator = GetComponent<Animator>();
 
         controls = new InputMaster();
-        //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
-
-        if (_photonView.IsMine)
-        {
-            animator = GetComponent<Animator>();
-        }
     }
 
     private void Update()
     {
+        if (photonView.IsMine == false)
+            return;
+
+        photonView.RPC("MoveRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    void MoveRPC()
+    {
         isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckDistance, walkableLayers);
-        if(isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
             //we are grounded
             velocity.y = -10f;
@@ -69,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
-
     void PlayerMove(Vector2 _input)
     {
         Vector3 movement = transform.right * _input.x + transform.forward * _input.y;
@@ -78,17 +81,44 @@ public class PlayerMovement : MonoBehaviour
     }
     void AnimationController(Vector2 _input)
     {
+        bool moving;
+
+        if (photonView.IsMine == false)
+            return;
+
         if(_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
         {
-            animator.SetBool("moving", true);
-            animator.SetFloat("inputX", _input.x);
-            animator.SetFloat("inputY", _input.y);
+            moving = true;
+            graphics.SetBool("moving", true);
+            graphics.SetFloat("inputX", _input.x);
+            graphics.SetFloat("inputY", _input.y);
         }
         else
         {
-            animator.SetBool("moving", false);
-            animator.SetFloat("inputX", 0);
-            animator.SetFloat("inputY", 0);
+            moving = false;
+            graphics.SetBool("moving", false);
+            graphics.SetFloat("inputX", 0);
+            graphics.SetFloat("inputY", 0);
+        }
+        if (photonView.IsMine)
+        {
+            photonView.RPC("UpdateAnimation", RpcTarget.Others, moving, _input.x, _input.y);
+        }
+    }
+    [PunRPC]
+    private void UpdateAnimation(bool moving, float inputX, float inputY)
+    {
+        if (moving)
+        {
+            graphics.SetBool("moving", true);
+            graphics.SetFloat("inputX", inputX);
+            graphics.SetFloat("inputY", inputY);
+        }
+        else
+        {
+            graphics.SetBool("moving", false);
+            graphics.SetFloat("inputX", 0);
+            graphics.SetFloat("inputY", 0);
         }
     }
     private void OnEnable()
@@ -98,10 +128,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
-
-        //this can be moved to a method that disables/enables player movement
-        //this could be controlled by a "Game State Manager"
-        //controls.PlayerMovement.Move.performed -= context => PlayerMove(context.ReadValue<Vector2>());
     }
 
     private void OnDrawGizmos()

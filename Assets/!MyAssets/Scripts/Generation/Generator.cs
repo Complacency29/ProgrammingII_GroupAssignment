@@ -229,7 +229,7 @@ namespace ModuleSnapping
                     if (pendingConnections[i].CapIfUnused == false || pendingConnections[i] != null)
                     {
                         //we don't want to cap this connection
-                        Debug.Log("This connection should not be capped: " + pendingConnections[i].name);
+                        //Debug.Log("This connection should not be capped: " + pendingConnections[i].name);
                     }
                     else
                     {

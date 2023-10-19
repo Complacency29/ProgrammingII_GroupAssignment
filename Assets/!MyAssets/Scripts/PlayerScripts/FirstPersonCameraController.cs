@@ -27,7 +27,7 @@ public class FirstPersonCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _photonView = GetComponent<PhotonView>();
+        _photonView = GetComponentInParent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
 
         if (!_photonView.IsMine)

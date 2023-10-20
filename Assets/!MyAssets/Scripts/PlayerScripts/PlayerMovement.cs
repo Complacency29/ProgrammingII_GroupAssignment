@@ -7,6 +7,9 @@ namespace ModuleSnapping
 {
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private PhotonView view;
+        [SerializeField] private Transform _camera;
+
         [Header("Movement Settings")]
         [SerializeField, Range(1, 100)] float baseMoveSpeed = 10f;
         [SerializeField, Range(.1f, 2f)] float jumpHeight = 2f;
@@ -24,11 +27,9 @@ namespace ModuleSnapping
         InputMaster controls;
         Vector3 velocity;
         bool isGrounded = true;
-        private PhotonView _photonView;
 
         private void Awake()
         {
-            _photonView = GetComponent<PhotonView>();
             characterController = GetComponent<CharacterController>();
             //animator = GetComponent<Animator>();
 
@@ -38,16 +39,20 @@ namespace ModuleSnapping
 
         private void Start()
         {
-            /*Generator gen = FindObjectOfType<Generator>();
-            PhotonView view = GetComponent<PhotonView>();
+            view = GetComponent<PhotonView>();
 
-            gen.OnPhotonPlayerConnected(view.Owner);*/
+            if(!view.IsMine && _camera != null)
+            {
+                Destroy(_camera.gameObject);
+            }
         }
 
         private void Update()
         {
-            if (_photonView.IsMine == false)
+            if(!view.IsMine)
+            {
                 return;
+            }
 
             isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckDistance, walkableLayers);
             if (isGrounded && velocity.y < 0)
@@ -62,23 +67,10 @@ namespace ModuleSnapping
 
             //Movement gubbins
             Vector2 input = controls.PlayerMovement.Move.ReadValue<Vector2>();
-            _photonView.RPC("PlayerMovementRPC", RpcTarget.All, input);
-            //PlayerMovementRPC(input);
+            PlayerMove(input);
             AnimationController(input);
 
             //Jump gubbins
-            _photonView.RPC("JumpMovementRPC", RpcTarget.All);
-            //JumpMovementRPC();
-        }
-        [PunRPC]
-        void PlayerMovementRPC(Vector2 _input)
-        {
-            Vector3 movement = transform.right * _input.x + transform.forward * _input.y;
-            characterController.Move(movement * baseMoveSpeed * Time.deltaTime);
-        }
-        [PunRPC]
-        void JumpMovementRPC()
-        {
             //if we are pressing the jump button AND we are grounded
             if (controls.PlayerMovement.Jump.ReadValue<float>() > 0 && isGrounded)
             {
@@ -89,8 +81,19 @@ namespace ModuleSnapping
             velocity.y += gravity * Time.deltaTime;
             characterController.Move(velocity * Time.deltaTime);
         }
+
+        void PlayerMove(Vector2 _input)
+        {
+            Vector3 movement = transform.right * _input.x + transform.forward * _input.y;
+
+            characterController.Move(movement * baseMoveSpeed * Time.deltaTime);
+        }
         void AnimationController(Vector2 _input)
         {
+            if (!view.IsMine)
+            {
+                return;
+            }
             if (_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
             {
                 animator.SetBool("moving", true);

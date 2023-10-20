@@ -106,7 +106,7 @@ namespace ModuleSnapping
                 StartCoroutine(GenerateEnvironment());
                 return;
             }
-            else if(clearingInProgress == false)
+            else if (clearingInProgress == false)
             {
                 clearingInProgress = true;
                 ClearModules();
@@ -140,7 +140,7 @@ namespace ModuleSnapping
             // set our iterations index to 0 for the first iteration
             int iteration = 0;
 
-            while(iteration < maxIterations) //this code will loop until we hit the max iterations number
+            while (iteration < maxIterations) //this code will loop until we hit the max iterations number
             {
                 //Create a new list to store all new connections
                 List<Connection> newConnections = new List<Connection>();
@@ -194,13 +194,13 @@ namespace ModuleSnapping
                         else
                             yield return null;
 
-                        
+
                         //Check if there has been a collision
                         //If so, remove the new module and try again
-                        if(newModule.GetIgnoreCollision == false)
+                        if (newModule.GetIgnoreCollision == false)
                         {
                             collisionFound = newModule.CollisionCheck();
-                            if(collisionFound == true)
+                            if (collisionFound == true)
                             {
                                 //Debug.Log("Collision found.");
                                 //Debug.Log(newModule.gameObject.ToString());
@@ -218,7 +218,7 @@ namespace ModuleSnapping
                         }
                         else
                         {
-                            if(iteration == maxIterations - 1)
+                            if (iteration == maxIterations - 1)
                             {
                                 lastRoomGenerated = true;
 
@@ -270,7 +270,7 @@ namespace ModuleSnapping
 
 
             inProgress = false;
-            if(lastRoomGenerated == false)
+            if (lastRoomGenerated == false)
             {
                 Debug.Log("The last room was not generated.");
                 yield return new WaitForSeconds(.1f);
@@ -283,7 +283,7 @@ namespace ModuleSnapping
                 //CapUnusedConnections(pendingConnections);
                 for (int i = 0; i < pendingConnections.Count; i++)
                 {
-                    if(pendingConnections[i] == null)
+                    if (pendingConnections[i] == null)
                     {
                         continue;
                     }
@@ -347,7 +347,7 @@ namespace ModuleSnapping
             List<GameObject> validChoices = new List<GameObject>();
 
             //check if we are on the last iteration
-            if(iteration >= maxIterations - 1)
+            if (iteration >= maxIterations - 1)
             {
                 //This code is for the last iteration
                 for (int i = 0; i < tileset.endModules.Length; i++)
@@ -436,11 +436,11 @@ namespace ModuleSnapping
                 clearingInProgress = false;
                 StartCoroutine(GenerateEnvironment());
 
-            //if in progress or there is already no children
-            if (inProgress || transform.childCount == 0)
-            {
-                return;
-            }
+                //if in progress or there is already no children
+                if (inProgress || transform.childCount == 0)
+                {
+                    return;
+                }
                 /*
                 //if in progress or there is already no children
                 if (inProgress || transform.childCount == 0)
@@ -483,5 +483,5 @@ namespace ModuleSnapping
                 MatchExits(_connections[i], exitToMatch);
             }*/
         //}
-    //}
+    }
 }

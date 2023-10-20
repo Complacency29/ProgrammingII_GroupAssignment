@@ -1283,6 +1283,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1833130736683083820, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: m_Range
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736683083820, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1293,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: maxLanternBrightness
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957649, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: m_Name

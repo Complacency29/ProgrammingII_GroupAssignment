@@ -78,7 +78,6 @@ namespace ModuleSnapping
                 //set the y velocity to the amount required to reach the specified jump height based on gravity
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
-
             velocity.y += gravity * Time.deltaTime;
             characterController.Move(velocity * Time.deltaTime);
         }
@@ -95,7 +94,6 @@ namespace ModuleSnapping
             {
                 return;
             }
-
             if (_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
             {
                 animator.SetBool("moving", true);

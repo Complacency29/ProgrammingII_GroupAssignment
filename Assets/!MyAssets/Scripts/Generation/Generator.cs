@@ -3,11 +3,17 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace ModuleSnapping
 {
     public class Generator : MonoBehaviorSingleton<Generator>
     {
+        [SerializeField] private int seed;
+        [SerializeField] private int lastPlayerCount = 1;
+        //[SerializeField] private List<PlayerHandler> playerList2 = new List<PlayerHandler>();
+        [SerializeField] private PlayerMovement[] playerList2;
+
         [SerializeField] private Tileset tileset; //Stores all modules that can be used in X area
         [SerializeField] private uint maxIterations; //Stores how many times the process can repeat, dictates map size1
         [SerializeField] private uint maxAttempts; //Stores max amount of times a module can try to be connected to another module
@@ -18,6 +24,7 @@ namespace ModuleSnapping
         [SerializeField] private bool inProgress = false; //Stores if we are already generating a map, will switch to false when we are finished
         [SerializeField] private bool lastRoomGenerated = false; //Stores if we have generated the last room
         [SerializeField] private GameObject block;
+        private Photon.Pun.PhotonView view;
 
         private List<Connection> allPendingConnections;
 
@@ -33,9 +40,57 @@ namespace ModuleSnapping
 
         private void Start()
         {
-            if (runOnStart)
+            view = GetComponent<PhotonView>();
+
+            if (runOnStart && Photon.Pun.PhotonNetwork.IsMasterClient)
+            {
+                Debug.Log("poop1");
+                seed = UnityEngine.Random.Range(0, int.MaxValue);
+                UnityEngine.Random.InitState(seed);
                 GenerateModules();
+            }
         }
+
+        /*public void Update()
+        {
+            playerList2 = FindObjectsOfType<PlayerMovement>();
+
+            if(Photon.Pun.PhotonNetwork.PlayerList.Length > lastPlayerCount)
+            {
+                lastPlayerCount++;
+
+
+
+                foreach (PlayerMovement player in playerList2)
+                {
+                    if (player.GetComponent<PhotonView>().IsMine)
+                    {
+                        OnPhotonPlayerConnected(player.GetComponent<PhotonView>().Owner);
+                    }
+                }
+            }
+        }*/
+
+        /*public void OnConnectedToMaster(Photon.Realtime.Player player)
+        {
+            if(Photon.Pun.PhotonNetwork.PlayerList.Length > 1)
+            {
+                Debug.Log("bruh");
+                if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                {
+                    Debug.Log("poop");
+                    view.RPC("SetSeed", player, seed);
+                }
+            }
+        }
+
+        [PunRPC]
+        public void SetSeed(int Seed)
+        {
+            seed = Seed;
+            UnityEngine.Random.InitState(seed);
+            GenerateModules();
+        }*/
 
         public void GenerateModules()
         {
@@ -61,6 +116,7 @@ namespace ModuleSnapping
 
         private IEnumerator GenerateEnvironment()
         {
+            Debug.Log("poop2");
             inProgress = true;
 
 
@@ -69,7 +125,7 @@ namespace ModuleSnapping
             int startingModuleRNG = UnityEngine.Random.Range(0, tileset.startingModules.Length);
 
             //Spawn the starting module as a prefab and make it a child of the generator
-            GameObject startingModulePrefab = Instantiate(tileset.startingModules[startingModuleRNG]);
+            GameObject startingModulePrefab = Photon.Pun.PhotonNetwork.Instantiate(tileset.startingModules[startingModuleRNG].name, Vector3.zero, Quaternion.identity);
             startingModulePrefab.transform.parent = transform;
 
             //Add the module component of the starting module to the loaded modules list
@@ -119,7 +175,7 @@ namespace ModuleSnapping
                         lastModule = newModulePrefab.ToString();
                         //Debug.Log(newModulePrefab.ToString());
 
-                        GameObject prefab = Instantiate(newModulePrefab);
+                        GameObject prefab = Photon.Pun.PhotonNetwork.Instantiate(newModulePrefab.name, Vector3.zero, Quaternion.identity);
                         prefab.transform.parent = transform;
                         Module newModule = prefab.GetComponent<Module>();
                         Connection[] newModuleConnections = newModule.GetConnections;
@@ -148,7 +204,7 @@ namespace ModuleSnapping
                             {
                                 //Debug.Log("Collision found.");
                                 //Debug.Log(newModule.gameObject.ToString());
-                                Destroy(newModule.gameObject);
+                                Photon.Pun.PhotonNetwork.Destroy(newModule.gameObject);     //  !!!!
                                 break;
                             }
                         }
@@ -199,7 +255,8 @@ namespace ModuleSnapping
             {
                 if (con != null && con.isActiveAndEnabled == true)
                 {
-                    Instantiate(block, con.transform);
+                    GameObject go = Photon.Pun.PhotonNetwork.Instantiate(block.name, con.transform.position, Quaternion.identity);
+                    go.transform.parent = transform;
                     //Debug.Log($"Block generated at ({con.transform.position.x}, {con.transform.position.y}, {con.transform.position.z})");
                 }
             }
@@ -234,7 +291,7 @@ namespace ModuleSnapping
                     if (pendingConnections[i].CapIfUnused == false || pendingConnections[i] != null)
                     {
                         //we don't want to cap this connection
-                        //Debug.Log("This connection should not be capped: " + pendingConnections[i].name);
+                        Debug.Log("This connection should not be capped: " + pendingConnections[i].name);
                     }
                     else
                     {
@@ -242,7 +299,7 @@ namespace ModuleSnapping
                         int rng = UnityEngine.Random.Range(0, tileset.capModules.Length);
 
                         //spawn a cap module of index rng
-                        GameObject capPrefab = Instantiate(tileset.capModules[rng]);
+                        GameObject capPrefab = Photon.Pun.PhotonNetwork.Instantiate(tileset.capModules[rng].name, Vector3.zero, Quaternion.identity);
                         capPrefab.transform.parent = transform;
                         Module newModule = capPrefab.GetComponent<Module>();
                         Connection[] newModuleConnections = newModule.GetConnections;
@@ -357,7 +414,6 @@ namespace ModuleSnapping
         /// </summary>
         private void ClearModules()
         {
-
             StopCoroutine(GenerateEnvironment());
 
             if (Photon.Pun.PhotonNetwork.IsMasterClient)
@@ -384,17 +440,24 @@ namespace ModuleSnapping
             if (inProgress || transform.childCount == 0)
             {
                 return;
-
             }
-            foreach (Transform item in transform)
-            {
-                Destroy(item.gameObject);
+                /*
+                //if in progress or there is already no children
+                if (inProgress || transform.childCount == 0)
+                {
+                    return;
+                }
+                foreach (Transform item in transform)
+                {
+                    Photon.Pun.PhotonNetwork.Destroy(item.gameObject);
+                }
+                clearingInProgress = false;
+                StartCoroutine(GenerateEnvironment());
+                */
             }
-            clearingInProgress = false;
-            StartCoroutine(GenerateEnvironment());
         }
 
-        void CapUnusedConnections(List<Connection> _connections)
+        /*void CapUnusedConnections(List<Connection> _connections)
         {
             Debug.Log("Capping unused connections");
             allPendingConnections = _connections;
@@ -412,13 +475,13 @@ namespace ModuleSnapping
                 int rng = UnityEngine.Random.Range(0, tileset.capModules.Length);
 
                 //spawn a cap module of index rng
-                GameObject capPrefab = Instantiate(tileset.capModules[rng]);
+                GameObject capPrefab = Photon.Pun.PhotonNetwork.Instantiate(tileset.capModules[rng].name, Vector3.zero, Quaternion.identity);
                 capPrefab.transform.parent = transform;
                 Module newModule = capPrefab.GetComponent<Module>();
                 Connection[] newModuleConnections = newModule.GetConnections;
                 Connection exitToMatch = newModuleConnections.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleConnections);
                 MatchExits(_connections[i], exitToMatch);
-            }
-        }
-    }
+            }*/
+        //}
+    //}
 }

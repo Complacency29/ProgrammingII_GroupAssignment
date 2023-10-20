@@ -13,7 +13,7 @@ public class FirstPersonCameraController : MonoBehaviour
     private float xRotation;
 
     private PhotonView _photonView;
-    private Camera _camera;
+    [SerializeField]private Camera _camera;
 
     InputMaster controls;
 

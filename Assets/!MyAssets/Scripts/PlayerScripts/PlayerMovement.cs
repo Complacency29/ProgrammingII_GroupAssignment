@@ -94,6 +94,11 @@ namespace ModuleSnapping
             {
                 return;
             }
+            view.RPC("AnimationControllerRPC", RpcTarget.All, _input);
+        }
+        [PunRPC]
+        void AnimationControllerRPC(Vector2 _input)
+        {
             if (_input.x > .1f || _input.x <= -.1f || _input.y > .1f || _input.y <= -.1f)
             {
                 animator.SetBool("moving", true);

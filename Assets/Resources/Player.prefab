@@ -205,6 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c783cf25053b44fbae0faf54e03dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 0}
+  _camera: {fileID: 0}
   baseMoveSpeed: 5
   jumpHeight: 1
   gravity: -19.62

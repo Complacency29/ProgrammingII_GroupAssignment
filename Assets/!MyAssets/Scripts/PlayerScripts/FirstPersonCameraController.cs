@@ -35,6 +35,10 @@ public class FirstPersonCameraController : MonoBehaviour
             _camera.enabled = false;
         }
     }
+    private void Update()
+    {
+        //Quaternion targetRotation = Quaternion.Euler(-21.894f, 180f, 0f);
+    }
 
     void MouseLook(Vector2 _input)
     {

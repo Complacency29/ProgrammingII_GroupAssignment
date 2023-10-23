@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 /// <summary>
 /// This script will be placed on the lantern, which is a child object of the player
@@ -15,22 +16,32 @@ public class Lantern : MonoBehaviour
 
     bool lanternIsOn = true;
     PlayerInventory inventory;
+    PhotonView view;
 
     private void Awake()
     {
         inventory = GetComponentInParent<PlayerInventory>();
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        if(lanternIsOn)
+        if (view.IsMine == false)
+            return;
+        view.RPC("LanternRPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void LanternRPC()
+    {
+        if (lanternIsOn)
         {
             //the lamp is on, so we need to burn oil
             //first check if we have oil
-            if(inventory?.CurLampOil > 0)
+            if (inventory?.CurLampOil > 0)
             {
                 //set the light level based on the percentage of remaining oil
-                float oilLevelPercentage = (float)(inventory.CurLampOil/inventory.MaxLampOil);
+                float oilLevelPercentage = (float)(inventory.CurLampOil / inventory.MaxLampOil);
                 float lightLevelPercentage = oilLightCurve.Evaluate(oilLevelPercentage);
                 lanternLight.intensity = lightLevelPercentage * maxLanternBrightness;
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.AI;
 
 namespace ModuleSnapping
 {
@@ -49,6 +50,7 @@ namespace ModuleSnapping
                 UnityEngine.Random.InitState(seed);
                 GenerateModules();
             }
+
         }
 
         /*public void Update()
@@ -304,6 +306,7 @@ namespace ModuleSnapping
                         Module newModule = capPrefab.GetComponent<Module>();
                         Connection[] newModuleConnections = newModule.GetConnections;
                         Connection exitToMatch = newModuleConnections[0];
+                        //view.RPC("MatchExits", RpcTarget.All, pendingConnections[i], exitToMatch);
                         MatchExits(pendingConnections[i], exitToMatch);
                     }
                 }
@@ -316,6 +319,7 @@ namespace ModuleSnapping
         /// </summary>
         /// <param name="_oldExit">The original exit that we will not rotate</param>
         /// <param name="_newExit">The new exit which will be rotated</param>
+        ///[PunRPC]
         private void MatchExits(Connection _oldExit, Connection _newExit)
         {
             Transform newModuleObject = _newExit.transform.parent;

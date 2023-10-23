@@ -8,13 +8,6 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField, Range(1, 15)] private int _maxSfxTracks = 5;
     [SerializeField] private GameObject _audioObject;
-    [SerializeField] private AudioClip homeBGM;
-    [SerializeField] private AudioClip cavesBGM;
-    [SerializeField] private AudioClip fortressBGM;
-    [SerializeField] private AudioClip minesBGM;
-    [SerializeField] private AudioClip forestBGM;
-    [SerializeField] private AudioClip mainMenuBGM;
-    public AudioClip MainMenuBGM { get { return mainMenuBGM; } }
 
 
     private AudioSource[] _sfxTracks;
@@ -44,39 +37,6 @@ public class AudioManager : MonoBehaviour
 
         _bgm = gameObject.AddComponent<AudioSource>();
     }
-
-    /*
-    public void PlayZoneBGM(Room.Zone _curRoomZone, float fadeDuration, bool isLooping = true, float volume = 0.5f)
-    {
-        //PlayerSettingsManager _psm = PlayerSettingsManager.Instance;
-
-        switch(_curRoomZone)
-        {
-            case Room.Zone.Home:
-                //start coroutine
-                StartCoroutine(PlayBGMCo(homeBGM, fadeDuration, isLooping, volume * _psm.MusicVolume * _psm.MasterVolume));
-                return;
-            case Room.Zone.Caves:
-                //start coroutine
-                StartCoroutine(PlayBGMCo(cavesBGM, fadeDuration, isLooping, volume * _psm.MusicVolume * _psm.MasterVolume));
-                return;
-            case Room.Zone.Fortress:
-                //start coroutine
-                StartCoroutine(PlayBGMCo(fortressBGM, fadeDuration, isLooping, volume * _psm.MusicVolume * _psm.MasterVolume));
-                return;
-            case Room.Zone.Mines:
-                //start coroutine
-                StartCoroutine(PlayBGMCo(minesBGM, fadeDuration, isLooping, volume * _psm.MusicVolume * _psm.MasterVolume));
-                return;
-            case Room.Zone.Forest:
-                //start coroutine
-                StartCoroutine(PlayBGMCo(forestBGM, fadeDuration * 2, isLooping, volume * _psm.MusicVolume * _psm.MasterVolume));
-                return;
-            default:
-                break;
-        }
-    }
-    */
 
     public void PlayBGM(AudioClip musicToPlay, float fadeDuration, bool isLooping = true, float volume = 0.5f)
     {

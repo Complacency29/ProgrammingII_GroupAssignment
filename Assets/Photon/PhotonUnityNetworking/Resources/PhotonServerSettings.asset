@@ -19,7 +19,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: ussc
     Server: 
     Port: 0
     ProxyServer: 
@@ -45,6 +45,9 @@ MonoBehaviour:
   - JumpMovementRPC
   - PlayerMovementRPC
   - AnimationControllerRPC
+  - LanterRPC
+  - MatchExits
+  - LanternRPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1

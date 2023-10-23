@@ -45,8 +45,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9339623, g: 0.8096676, b: 0.6123621, a: 1}
-  m_Intensity: 3
-  m_Range: 15
+  m_Intensity: 2
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -87,7 +87,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833130736833957651}
   - component: {fileID: 1833130736833957648}
+  - component: {fileID: 459786632701654}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -164,32 +165,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      time: -0.003318584
+      value: 0.045776367
+      inSlope: 17.037737
+      outSlope: 17.037737
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.06648552
     - serializedVersion: 3
-      time: 0.06350818
-      value: 0.7187489
-      inSlope: 5.099471
-      outSlope: 5.099471
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2676278
-      outWeight: 0.043153398
-    - serializedVersion: 3
-      time: 0.17344779
-      value: 0.9706574
-      inSlope: 0.105296604
-      outSlope: 0.105296604
+      time: 0.02130753
+      value: 0.42347676
+      inSlope: 9.088235
+      outSlope: 9.088235
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.0692154
+      outWeight: 0.16488689
+    - serializedVersion: 3
+      time: 0.13565376
+      value: 0.9943291
+      inSlope: 0.007869579
+      outSlope: 0.007869579
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.10436212
     - serializedVersion: 3
       time: 1
       value: 1
@@ -202,9 +203,31 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  oilBurnRate: 5
-  maxLanternBrightness: 2.95
+  oilBurnRate: 1
+  maxLanternBrightness: 3
   lanternLight: {fileID: 1833130736683083820}
+--- !u!114 &459786632701654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833130736833957649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1833130735345192140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -230,15 +253,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.194
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.633
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.371
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_LocalRotation.w
@@ -275,6 +298,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_Name
       value: lantern
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 0c71bed7e5b584b47954319978089712, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.391
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 0c71bed7e5b584b47954319978089712, type: 3}
       propertyPath: m_StaticEditorFlags

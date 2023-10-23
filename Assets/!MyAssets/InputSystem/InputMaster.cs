@@ -206,6 +206,45 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerActions"",
+            ""id"": ""514c0720-9c40-4b1a-97e1-ba0a95511ea1"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c388348a-97a0-42a8-8e5d-c4cbb16bdc6e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c52693dc-63ef-4702-827e-18a97b30079e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61730cfb-d4ba-4583-ac82-7a771a002e22"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -218,6 +257,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         // MenuNavigation
         m_MenuNavigation = asset.FindActionMap("MenuNavigation", throwIfNotFound: true);
         m_MenuNavigation_Exit = m_MenuNavigation.FindAction("Exit", throwIfNotFound: true);
+        // PlayerActions
+        m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
+        m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +425,52 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         }
     }
     public MenuNavigationActions @MenuNavigation => new MenuNavigationActions(this);
+
+    // PlayerActions
+    private readonly InputActionMap m_PlayerActions;
+    private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
+    private readonly InputAction m_PlayerActions_Attack;
+    public struct PlayerActionsActions
+    {
+        private @InputMaster m_Wrapper;
+        public PlayerActionsActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Attack => m_Wrapper.m_PlayerActions_Attack;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerActionsActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerActionsActionsCallbackInterfaces.Add(instance);
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+        }
+
+        private void UnregisterCallbacks(IPlayerActionsActions instance)
+        {
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+        }
+
+        public void RemoveCallbacks(IPlayerActionsActions instance)
+        {
+            if (m_Wrapper.m_PlayerActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
     public interface IPlayerMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -392,5 +480,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     public interface IMenuNavigationActions
     {
         void OnExit(InputAction.CallbackContext context);
+    }
+    public interface IPlayerActionsActions
+    {
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

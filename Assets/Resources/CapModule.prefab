@@ -47,7 +47,7 @@ MonoBehaviour:
   validConnections: 0000000001000000
   gizmoScale: 1.02
   gizmoSphereRelativeSize: 0.2
-  isDefault: 0
+  isDefault: 1
   capIfUnused: 0
 --- !u!1 &4586216016906226851
 GameObject:
@@ -97,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1.92, z: 0}
+  m_Size: {x: 2.5, y: 2.5, z: 0.2}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &8807545948979415121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 2
+  Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
@@ -183,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalRotation.x
@@ -191,7 +191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalRotation.z
@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000826944641264583, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

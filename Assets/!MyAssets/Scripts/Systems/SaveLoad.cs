@@ -117,20 +117,44 @@ public class PlayerSaveData
 {
     private int curHealth;
     private int maxHealth;
-    private int curGold;
+    private int curHealthPots;
+    private int maxHealthPots;
+    private int healthPotHealAmount;
     private float curLampOil;
+    private float maxLampOil;
+    private int curOilRefills;
+    private int maxOilRefills;
+    private int oilRefillAmount;
+    private int curGold;
+    private int upgradesBits;
 
     public int CurHealth { get { return curHealth; } }
     public int MaxHealth { get { return maxHealth; } }
-    public int CurGold { get { return curGold; } }
+    public int CurHealthPots { get { return curHealthPots; } }
+    public int MaxHealthPots { get { return maxHealthPots; } }
+    public int HealthPotHealAmount { get { return healthPotHealAmount; } }
     public float CurLampOil { get { return curLampOil; } }
+    public float MaxLampOil { get { return maxLampOil; } }
+    public int CurOilRefills { get { return curOilRefills; } }
+    public int MaxOilRefills { get { return maxOilRefills; } }
+    public int OilRefillAmount { get { return oilRefillAmount; } }
+    public int CurGold { get { return curGold; } }
+    public int UpgradesBits { get { return upgradesBits; } }
 
     public PlayerSaveData(PlayerInventory _inventoryToSave)
     {
 
         curHealth = _inventoryToSave.CurHealth;
         maxHealth = _inventoryToSave.MaxHealth;
-        curGold = _inventoryToSave.CurGold;
+        curHealthPots = _inventoryToSave.CurHealthPotions;
+        maxHealthPots = _inventoryToSave.MaxHealthPotions;
+        healthPotHealAmount = _inventoryToSave.HealthPotionHealAmount;
         curLampOil = _inventoryToSave.CurLampOil;
+        maxLampOil = _inventoryToSave.MaxLampOil;
+        curOilRefills = _inventoryToSave.CurOilRefill;
+        maxOilRefills = _inventoryToSave.MaxOilRefill;
+        oilRefillAmount = _inventoryToSave.OilRefillAmount;
+        curGold = _inventoryToSave.CurGold;
+        upgradesBits = _inventoryToSave.UpgradesBits;
     }
 }

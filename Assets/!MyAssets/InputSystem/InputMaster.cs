@@ -219,6 +219,33 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseHealthPotion"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bb45a6b-9d09-44c3-9b58-b62ee8157f41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseOilRefill"",
+                    ""type"": ""Button"",
+                    ""id"": ""6522fd27-292e-4c22-af22-766ef71e4ed5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6296fdb-b2f9-40b4-bbad-04696b93d5ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -236,11 +263,77 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""61730cfb-d4ba-4583-ac82-7a771a002e22"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16765a0e-a545-43cf-b8e5-94da61f2fe5f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHealthPotion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a06368f-6de2-4db6-a87d-f55ae3041466"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHealthPotion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a22cd625-21e0-4781-b74b-045dcae54f8d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1006064-0ede-490f-b51a-65aa4038a436"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7edc11c5-b79d-456a-8819-b195bda710ca"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseOilRefill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5abc137-2fdb-4941-b358-7928cc4d05aa"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseOilRefill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -260,6 +353,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         // PlayerActions
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerActions_UseHealthPotion = m_PlayerActions.FindAction("UseHealthPotion", throwIfNotFound: true);
+        m_PlayerActions_UseOilRefill = m_PlayerActions.FindAction("UseOilRefill", throwIfNotFound: true);
+        m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -430,11 +526,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActions;
     private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
     private readonly InputAction m_PlayerActions_Attack;
+    private readonly InputAction m_PlayerActions_UseHealthPotion;
+    private readonly InputAction m_PlayerActions_UseOilRefill;
+    private readonly InputAction m_PlayerActions_Interact;
     public struct PlayerActionsActions
     {
         private @InputMaster m_Wrapper;
         public PlayerActionsActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_PlayerActions_Attack;
+        public InputAction @UseHealthPotion => m_Wrapper.m_PlayerActions_UseHealthPotion;
+        public InputAction @UseOilRefill => m_Wrapper.m_PlayerActions_UseOilRefill;
+        public InputAction @Interact => m_Wrapper.m_PlayerActions_Interact;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -447,6 +549,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @UseHealthPotion.started += instance.OnUseHealthPotion;
+            @UseHealthPotion.performed += instance.OnUseHealthPotion;
+            @UseHealthPotion.canceled += instance.OnUseHealthPotion;
+            @UseOilRefill.started += instance.OnUseOilRefill;
+            @UseOilRefill.performed += instance.OnUseOilRefill;
+            @UseOilRefill.canceled += instance.OnUseOilRefill;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -454,6 +565,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @UseHealthPotion.started -= instance.OnUseHealthPotion;
+            @UseHealthPotion.performed -= instance.OnUseHealthPotion;
+            @UseHealthPotion.canceled -= instance.OnUseHealthPotion;
+            @UseOilRefill.started -= instance.OnUseOilRefill;
+            @UseOilRefill.performed -= instance.OnUseOilRefill;
+            @UseOilRefill.canceled -= instance.OnUseOilRefill;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -484,5 +604,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     public interface IPlayerActionsActions
     {
         void OnAttack(InputAction.CallbackContext context);
+        void OnUseHealthPotion(InputAction.CallbackContext context);
+        void OnUseOilRefill(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

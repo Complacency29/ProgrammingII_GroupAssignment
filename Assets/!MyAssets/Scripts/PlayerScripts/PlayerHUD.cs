@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] TMP_Text potionsText;
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider oilSlider;
+    [SerializeField] TMP_Text oilRefillsText;
 
     PlayerInventory inventory;
 
@@ -27,9 +28,12 @@ public class PlayerHUD : MonoBehaviour
     private void Update()
     {
         goldText.text = "Gold: " + inventory.CurGold;
-        potionsText.text = "Potions: " + inventory.CurPotions;
+        potionsText.text = "Potions: " + inventory.CurHealthPotions;
 
         healthSlider.value = inventory.CurHealth;
         oilSlider.value = inventory.CurLampOil;
+
+        string oilRefillsString = "Oil Refills: " + inventory.CurOilRefill + "/" + inventory.MaxOilRefill;
+        oilRefillsText.text = oilRefillsString;
     }
 }

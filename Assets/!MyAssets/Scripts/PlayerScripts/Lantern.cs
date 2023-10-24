@@ -17,11 +17,18 @@ public class Lantern : MonoBehaviour
     bool lanternIsOn = true;
     PlayerInventory inventory;
     PhotonView view;
+    InputMaster controls;
 
     private void Awake()
     {
         inventory = GetComponentInParent<PlayerInventory>();
         view = GetComponent<PhotonView>();
+
+        if(view.IsMine)
+        {
+            controls = new InputMaster();
+            controls.PlayerActions.UseOilRefill.performed += context => UseOilRefill();
+        }
     }
 
     private void Update()
@@ -29,6 +36,29 @@ public class Lantern : MonoBehaviour
         if (view.IsMine == false)
             return;
         view.RPC("LanternRPC", RpcTarget.All);
+    }
+
+    public void UseOilRefill()
+    {
+        view.RPC("OilRefillRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    private void OilRefillRPC()
+    {
+        //check if we have an oil refill
+        if (inventory.CurOilRefill > 0)
+        {
+            inventory.CurOilRefill--;
+            inventory.CurLampOil += inventory.OilRefillAmount;
+            if (inventory.CurLampOil > inventory.MaxLampOil)
+            {
+                inventory.CurLampOil = inventory.MaxLampOil;
+            }
+        }
+        else
+        {
+            Debug.Log("Player has no oil refills.");
+        }
     }
 
     [PunRPC]
@@ -53,5 +83,20 @@ public class Lantern : MonoBehaviour
                 inventory.CurLampOil -= oilBurnRate * Time.deltaTime;
             }
         }
+    }
+    private void OnEnable()
+    {
+        if (view.IsMine == false)
+            return;
+
+        controls.Enable();
+    }
+    private void OnDisable()
+    {
+        if (view.IsMine == false)
+            return;
+
+        controls.PlayerActions.UseOilRefill.performed -= context => UseOilRefill();
+        controls.Disable();
     }
 }

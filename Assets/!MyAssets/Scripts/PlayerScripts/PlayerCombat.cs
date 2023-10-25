@@ -10,13 +10,15 @@ public class PlayerCombat : MonoBehaviour, IDamageable
     PlayerInventory inventory;
 
 
-    bool holdingWeapon = false;
+    [SerializeField] bool holdingWeapon = false;
     bool canAttack = true;
     InputMaster controls;
     PhotonView view;
 
     private void Awake()
     {
+        view = GetComponent<PhotonView>();
+
         if (view.IsMine == false)
             return;
 

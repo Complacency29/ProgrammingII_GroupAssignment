@@ -27,9 +27,12 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] int oilRefillAmount = 20;
 
-    [Header("Gold")]
+    [Header("Other")]
     //Current gold amount
-    [SerializeField] int curGold = 0;
+    [SerializeField] int currentGold = 0;
+
+    //This will keep track of our currently equipped weapon
+    [SerializeField] WeaponBase equippedWeapon;
 
     //This is the int that keeps track of our upgrades
     int upgradesBits = 0;
@@ -44,7 +47,8 @@ public class PlayerInventory : MonoBehaviour
     public int CurOilRefill { get { return curOilRefill; } set { curOilRefill = value; } }
     public int MaxOilRefill { get { return maxOilRefill; } set { maxOilRefill = value; } }
     public int OilRefillAmount { get { return oilRefillAmount; } set { oilRefillAmount = value; } }
-    public int CurGold { get { return curGold; } set { curGold = value; } }
+    public int CurGold { get { return currentGold; } set { currentGold = value; } }
+    public WeaponBase EquippedWeapon { get { return equippedWeapon; } set { equippedWeapon = value; } }
     public int UpgradesBits { get { return upgradesBits; } set { upgradesBits = value; } }
 
 

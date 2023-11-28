@@ -6,11 +6,13 @@ using Photon.Pun;
 public class PlayerCombat : MonoBehaviour, IDamageable
 {
     [SerializeField] float attackCooldown = .5f;
+    [SerializeField] Transform weaponSpawnPoint;
     Animator animator;
     PlayerInventory inventory;
 
 
     [SerializeField] bool holdingWeapon = false;
+    Transform currentAttachedWeapon;
     bool canAttack = true;
     InputMaster controls;
     PhotonView view;
@@ -23,6 +25,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable
             return;
 
         controls = new InputMaster();
+        controls.PlayerActions.ToggleWeapon.performed += context => ToggleSheathWeapon();
         controls.PlayerActions.Attack.performed += context => Attack();
         controls.PlayerActions.UseHealthPotion.performed += context => UseHealthPotion();
 
@@ -30,16 +33,61 @@ public class PlayerCombat : MonoBehaviour, IDamageable
         animator = GetComponent<PlayerMovement>().GetAnimator;
     }
 
+    void ToggleSheathWeapon()
+    {
+        if (view.IsMine == false)
+            return;
+
+        //if we don't have a weapon we don't need to do anything.
+        if (inventory.EquippedWeapon == null)
+            return;
+
+        //if we aren't holding the weapon
+        if (!holdingWeapon)
+            UnsheathWeapon();
+        else
+            SheathWeapon();
+    }
+
     void UnsheathWeapon()
     {
         holdingWeapon = true;
         animator.SetBool("holdingWeapon", true);
+
+        if(currentAttachedWeapon == null)
+        {
+            //we don't have an attached weapon
+            //spawn the equipped weapon at the position and rotation of the WeaponSpawnPoint
+            currentAttachedWeapon = Instantiate(inventory.EquippedWeapon.Prefab, weaponSpawnPoint.position, weaponSpawnPoint.rotation).transform;
+            currentAttachedWeapon.transform.parent = weaponSpawnPoint;
+        }
+        else
+        {
+            //we do have an attached weapon
+
+            if (currentAttachedWeapon == inventory.EquippedWeapon.Prefab)
+            {
+                //the weapon we currently have matches the one we want to unsheath
+                currentAttachedWeapon.gameObject.SetActive(true);
+            }
+            else
+            {
+                //the weapon we currently have does NOT match the one we want to unsheath
+                //Destroy the old one, instantiate the new one (can replace with object pooling, but probably not required w/ our low player count)
+                Destroy(currentAttachedWeapon.gameObject);
+
+                currentAttachedWeapon = Instantiate(inventory.EquippedWeapon.Prefab, weaponSpawnPoint).transform;
+                currentAttachedWeapon.transform.localPosition = Vector3.zero;
+                currentAttachedWeapon.transform.localRotation = Quaternion.identity;
+            }
+        }
     }
 
     void SheathWeapon()
     {
         holdingWeapon = false;
         animator.SetBool("holdingWeapon", false);
+        currentAttachedWeapon.gameObject.SetActive(false);
     }
 
     void Attack()
@@ -107,7 +155,9 @@ public class PlayerCombat : MonoBehaviour, IDamageable
     {
         if (view.IsMine == false)
             return;
+        controls.PlayerActions.ToggleWeapon.performed -= context => ToggleSheathWeapon();
         controls.PlayerActions.Attack.performed -= context => Attack();
+        controls.PlayerActions.UseHealthPotion.performed -= context => UseHealthPotion();
         controls.Disable();
     }
 }

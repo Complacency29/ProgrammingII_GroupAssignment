@@ -17,5 +17,7 @@ public class jb_cont_break : MonoBehaviour {
 				fragment.attachedRigidbody.AddExplosionForce(Force, breakPosition, Spread);
 			}
 		}
+
+		GetComponent<LootBag>().InstantiateLoot(transform.position);
 	}
 }

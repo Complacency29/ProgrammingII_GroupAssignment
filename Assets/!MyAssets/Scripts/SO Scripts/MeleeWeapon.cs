@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/Melee Weapon")]
 public class MeleeWeapon : WeaponBase
 {
-    [SerializeField] float swingSpeed;
+    [SerializeField, Range(.1f, 4f)] float swingSpeed;
 }

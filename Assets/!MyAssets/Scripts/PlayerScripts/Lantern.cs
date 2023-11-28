@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 /// <summary>
 /// This script will be placed on the lantern, which is a child object of the player
@@ -28,6 +29,27 @@ public class Lantern : MonoBehaviour
         {
             controls = new InputMaster();
             controls.PlayerActions.UseOilRefill.performed += context => UseOilRefill();
+            controls.PlayerActions.ToggleLamp.performed += context => ToggleLamp();
+        }
+    }
+
+    private void ToggleLamp()
+    {
+        //if this is not our photon view, do nothing
+        if (view.IsMine == false)
+            return;
+
+        if(lanternIsOn)
+        {
+            //lantern is on, turn it off
+            lanternIsOn = false;
+            lanternLight.enabled = false;
+        }
+        else
+        {
+            //lantern is off, turn it on
+            lanternIsOn = true;
+            lanternLight.enabled = true;
         }
     }
 
@@ -97,6 +119,7 @@ public class Lantern : MonoBehaviour
             return;
 
         controls.PlayerActions.UseOilRefill.performed -= context => UseOilRefill();
+        controls.PlayerActions.ToggleLamp.performed -= context => ToggleLamp();
         controls.Disable();
     }
 }

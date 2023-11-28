@@ -277,6 +277,24 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLamp"",
+                    ""type"": ""Button"",
+                    ""id"": ""76507693-1f1e-4f4f-8599-f68f85b2509d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""62d20f35-2fb9-4a12-bb7b-59b292020920"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -367,6 +385,50 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""UseOilRefill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71e8d528-ce9a-4bbd-b2d3-0dba75f253c8"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLamp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30c4ef4c-bb3d-422a-8512-d08af064e16b"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLamp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c22facdc-a0b8-4e46-98a5-903093b42c22"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a942db8-737c-4c0d-a352-c01be85789d0"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -388,6 +450,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_PlayerActions_UseHealthPotion = m_PlayerActions.FindAction("UseHealthPotion", throwIfNotFound: true);
         m_PlayerActions_UseOilRefill = m_PlayerActions.FindAction("UseOilRefill", throwIfNotFound: true);
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerActions_ToggleLamp = m_PlayerActions.FindAction("ToggleLamp", throwIfNotFound: true);
+        m_PlayerActions_ToggleWeapon = m_PlayerActions.FindAction("ToggleWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -569,6 +633,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_UseHealthPotion;
     private readonly InputAction m_PlayerActions_UseOilRefill;
     private readonly InputAction m_PlayerActions_Interact;
+    private readonly InputAction m_PlayerActions_ToggleLamp;
+    private readonly InputAction m_PlayerActions_ToggleWeapon;
     public struct PlayerActionsActions
     {
         private @InputMaster m_Wrapper;
@@ -577,6 +643,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @UseHealthPotion => m_Wrapper.m_PlayerActions_UseHealthPotion;
         public InputAction @UseOilRefill => m_Wrapper.m_PlayerActions_UseOilRefill;
         public InputAction @Interact => m_Wrapper.m_PlayerActions_Interact;
+        public InputAction @ToggleLamp => m_Wrapper.m_PlayerActions_ToggleLamp;
+        public InputAction @ToggleWeapon => m_Wrapper.m_PlayerActions_ToggleWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -598,6 +666,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @ToggleLamp.started += instance.OnToggleLamp;
+            @ToggleLamp.performed += instance.OnToggleLamp;
+            @ToggleLamp.canceled += instance.OnToggleLamp;
+            @ToggleWeapon.started += instance.OnToggleWeapon;
+            @ToggleWeapon.performed += instance.OnToggleWeapon;
+            @ToggleWeapon.canceled += instance.OnToggleWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -614,6 +688,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @ToggleLamp.started -= instance.OnToggleLamp;
+            @ToggleLamp.performed -= instance.OnToggleLamp;
+            @ToggleLamp.canceled -= instance.OnToggleLamp;
+            @ToggleWeapon.started -= instance.OnToggleWeapon;
+            @ToggleWeapon.performed -= instance.OnToggleWeapon;
+            @ToggleWeapon.canceled -= instance.OnToggleWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -648,5 +728,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnUseHealthPotion(InputAction.CallbackContext context);
         void OnUseOilRefill(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnToggleLamp(InputAction.CallbackContext context);
+        void OnToggleWeapon(InputAction.CallbackContext context);
     }
 }

@@ -400,6 +400,34 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Testing"",
+            ""id"": ""b1a84908-80e2-4935-a4ad-f02f25e349e0"",
+            ""actions"": [
+                {
+                    ""name"": ""HurtPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4731e7d-f8d5-4485-b50a-9c38567c9973"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c2e1a398-b7c6-481e-aacf-5d2782cd60bf"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HurtPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -420,6 +448,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
         m_PlayerActions_ToggleLamp = m_PlayerActions.FindAction("ToggleLamp", throwIfNotFound: true);
         m_PlayerActions_ToggleWeapon = m_PlayerActions.FindAction("ToggleWeapon", throwIfNotFound: true);
+        // Testing
+        m_Testing = asset.FindActionMap("Testing", throwIfNotFound: true);
+        m_Testing_HurtPlayer = m_Testing.FindAction("HurtPlayer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -671,6 +702,52 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // Testing
+    private readonly InputActionMap m_Testing;
+    private List<ITestingActions> m_TestingActionsCallbackInterfaces = new List<ITestingActions>();
+    private readonly InputAction m_Testing_HurtPlayer;
+    public struct TestingActions
+    {
+        private @InputMaster m_Wrapper;
+        public TestingActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HurtPlayer => m_Wrapper.m_Testing_HurtPlayer;
+        public InputActionMap Get() { return m_Wrapper.m_Testing; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestingActions set) { return set.Get(); }
+        public void AddCallbacks(ITestingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TestingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TestingActionsCallbackInterfaces.Add(instance);
+            @HurtPlayer.started += instance.OnHurtPlayer;
+            @HurtPlayer.performed += instance.OnHurtPlayer;
+            @HurtPlayer.canceled += instance.OnHurtPlayer;
+        }
+
+        private void UnregisterCallbacks(ITestingActions instance)
+        {
+            @HurtPlayer.started -= instance.OnHurtPlayer;
+            @HurtPlayer.performed -= instance.OnHurtPlayer;
+            @HurtPlayer.canceled -= instance.OnHurtPlayer;
+        }
+
+        public void RemoveCallbacks(ITestingActions instance)
+        {
+            if (m_Wrapper.m_TestingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ITestingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TestingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TestingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public TestingActions @Testing => new TestingActions(this);
     public interface IPlayerMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -689,5 +766,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnToggleLamp(InputAction.CallbackContext context);
         void OnToggleWeapon(InputAction.CallbackContext context);
+    }
+    public interface ITestingActions
+    {
+        void OnHurtPlayer(InputAction.CallbackContext context);
     }
 }

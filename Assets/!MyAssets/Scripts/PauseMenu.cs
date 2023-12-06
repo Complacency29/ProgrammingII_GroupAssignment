@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Photon.Pun.Demo.SlotRacer;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +9,22 @@ public class PauseMenu : MonoBehaviour
 {
     //need to find other inputs and do an if statement around them
     public GameObject pauseMenu;
-    private static bool _isPaused;
-    private InputMaster _controls;
+    public bool _isPaused = false;
+    InputMaster _controls;
 
     private void Awake()
     {
         _controls = new InputMaster();
+    }
+
+    private void OnEnable()
+    {
+        _controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.Disable();
     }
 
     void Start()
@@ -40,14 +51,14 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         _isPaused = true;
     }
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         _isPaused = false;
     }
 
@@ -58,11 +69,21 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitRoom()
     {
-
+        StartCoroutine(DisconnectAndLoad());
     }
 
     public void Settings()
     {
 
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.LeaveRoom();
+        while(PhotonNetwork.InRoom)
+        {
+            yield return null;
+        }
+        SceneManager.LoadScene("LobbyScene");
     }
 }

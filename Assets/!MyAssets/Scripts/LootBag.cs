@@ -4,7 +4,6 @@ using UnityEngine;
 //Can do this all in one script and can have more than one item dropped for now only one
 public class LootBag : MonoBehaviour
 {
-    public GameObject droppedItemPrefab;
     public List<Loot> lootList = new List<Loot>();
 
     private Loot GetDroppedItem()
@@ -34,10 +33,8 @@ public class LootBag : MonoBehaviour
         Loot droppedItem = GetDroppedItem();
         if( droppedItem != null )
         {
-            GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnPosition, Quaternion.identity);
-            //Might need to change this
-            lootGameObject = droppedItem.LootPrefab;
-
+            GameObject lootGameObject = droppedItem.LootPrefab;
+             Instantiate(lootGameObject, spawnPosition, Quaternion.identity);
         }
     }
 }

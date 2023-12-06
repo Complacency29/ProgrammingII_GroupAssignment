@@ -5,8 +5,12 @@ using UnityEngine;
 public class jb_cont_break : MonoBehaviour {
 	public Transform Fragments;
 	public float Spread, Force;
+
+
 	void OnMouseDown () {
-		Destroy(gameObject);
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+
+        Destroy(gameObject);
 		Instantiate(Fragments, transform.position, transform.rotation);
 		Fragments.localScale = transform.localScale;
 		Vector3 breakPosition = transform.position;
@@ -18,6 +22,6 @@ public class jb_cont_break : MonoBehaviour {
 			}
 		}
 
-		GetComponent<LootBag>().InstantiateLoot(transform.position);
-	}
+       
+    }
 }

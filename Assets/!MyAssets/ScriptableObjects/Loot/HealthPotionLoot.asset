@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c53324bfdef08524bb09d88d8d764adf, type: 3}
-  m_Name: OilRefill
+  m_Name: HealthPotionLoot
   m_EditorClassIdentifier: 
-  LootPrefab: {fileID: 0}
-  LootName: 
-  DropChance: 30
+  LootPrefab: {fileID: 4714808012123360121, guid: 7de466a4d61221e4cb6c5afbac6fa962, type: 3}
+  LootName: HealthPotion
+  DropChance: 50

@@ -409,6 +409,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Testing",
+            "id": "b1a84908-80e2-4935-a4ad-f02f25e349e0",
+            "actions": [
+                {
+                    "name": "HurtPlayer",
+                    "type": "Button",
+                    "id": "b4731e7d-f8d5-4485-b50a-9c38567c9973",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c2e1a398-b7c6-481e-aacf-5d2782cd60bf",
+                    "path": "<Keyboard>/numpadMinus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HurtPlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

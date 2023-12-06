@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Mono.Cecil.Cil;
 
 public class PlayerCombat : MonoBehaviour, IDamageable
 {
@@ -28,6 +29,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable
         controls.PlayerActions.ToggleWeapon.performed += context => ToggleSheathWeapon();
         controls.PlayerActions.Attack.performed += context => Attack();
         controls.PlayerActions.UseHealthPotion.performed += context => UseHealthPotion();
+        controls.Testing.HurtPlayer.performed += context => HurtPlayerForTesting();
 
         inventory = GetComponent<PlayerInventory>();
         animator = GetComponent<PlayerMovement>().GetAnimator;
@@ -81,6 +83,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable
                 currentAttachedWeapon.transform.localRotation = Quaternion.identity;
             }
         }
+
+        //set the colliders on the WeaponAnimationEvents component to the colliders of the currentAttachedWeapon
+        GetComponentInChildren<WeaponAnimationEvents>().CurrentWeaponCollider = currentAttachedWeapon.GetComponent<Collider>();
+        //set the damage value on the WeaponDamageController component on the weapon
+        currentAttachedWeapon.GetComponent<WeaponDamageController>().DamageAmount = inventory.EquippedWeapon.GetDamage;
     }
 
     void SheathWeapon()
@@ -115,7 +122,10 @@ public class PlayerCombat : MonoBehaviour, IDamageable
 
     private void UseHealthPotion()
     {
-        if(inventory.CurHealthPotions > 0)
+        if (view.IsMine == false)
+            return;
+
+        if(inventory.CurHealthPotions > 0 && inventory.CurHealth < inventory.MaxHealth)
         {
             inventory.CurHealthPotions--;
             Heal(inventory.HealthPotionHealAmount);
@@ -133,7 +143,9 @@ public class PlayerCombat : MonoBehaviour, IDamageable
 
         view.RPC("HealRPC", RpcTarget.All, _amount);
     }
-    private void HealRPC(int _amount)
+
+    [PunRPC]
+    public void HealRPC(int _amount)
     {
         //add the absolut value of the given amount to the players health
         inventory.CurHealth += Mathf.Abs(_amount);
@@ -158,6 +170,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable
         controls.PlayerActions.ToggleWeapon.performed -= context => ToggleSheathWeapon();
         controls.PlayerActions.Attack.performed -= context => Attack();
         controls.PlayerActions.UseHealthPotion.performed -= context => UseHealthPotion();
+        controls.Testing.HurtPlayer.performed -= context => HurtPlayerForTesting();
         controls.Disable();
+    }
+    void HurtPlayerForTesting()
+    {
+        Damage(10);
     }
 }

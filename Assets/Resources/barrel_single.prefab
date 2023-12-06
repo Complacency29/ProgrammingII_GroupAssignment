@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 35677975893679499}
   - component: {fileID: -7134267582472535989}
   - component: {fileID: 8408777035772584768}
+  - component: {fileID: 4211002685894898166}
   m_Layer: 7
   m_Name: barrel_single
   m_TagString: Untagged
@@ -176,6 +177,21 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &4211002685894898166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4163034507164031569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fd4366624d41a40aefc4658fba7afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList:
+  - {fileID: 11400000, guid: 31d95e06a95c5d44086f52aebaf3472d, type: 2}
+  - {fileID: 11400000, guid: ee3593224c4893f48a9f888fed46d398, type: 2}
 --- !u!1 &5241437321367720506
 GameObject:
   m_ObjectHideFlags: 0

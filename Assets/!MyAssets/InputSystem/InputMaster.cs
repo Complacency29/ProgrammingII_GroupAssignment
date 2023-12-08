@@ -180,6 +180,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0e5ffe2-0c07-47a7-bcfe-5c5dd75f4ceb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -202,6 +211,28 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b07dadf1-f8f6-4bfe-b6e3-00f504bae87c"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""232cd703-7769-4337-900c-edd61640b504"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -400,6 +431,34 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Testing"",
+            ""id"": ""b1a84908-80e2-4935-a4ad-f02f25e349e0"",
+            ""actions"": [
+                {
+                    ""name"": ""HurtPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4731e7d-f8d5-4485-b50a-9c38567c9973"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c2e1a398-b7c6-481e-aacf-5d2782cd60bf"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HurtPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -412,6 +471,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         // MenuNavigation
         m_MenuNavigation = asset.FindActionMap("MenuNavigation", throwIfNotFound: true);
         m_MenuNavigation_Exit = m_MenuNavigation.FindAction("Exit", throwIfNotFound: true);
+        m_MenuNavigation_Pause = m_MenuNavigation.FindAction("Pause", throwIfNotFound: true);
         // PlayerActions
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
@@ -420,6 +480,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
         m_PlayerActions_ToggleLamp = m_PlayerActions.FindAction("ToggleLamp", throwIfNotFound: true);
         m_PlayerActions_ToggleWeapon = m_PlayerActions.FindAction("ToggleWeapon", throwIfNotFound: true);
+        // Testing
+        m_Testing = asset.FindActionMap("Testing", throwIfNotFound: true);
+        m_Testing_HurtPlayer = m_Testing.FindAction("HurtPlayer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -544,11 +607,13 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MenuNavigation;
     private List<IMenuNavigationActions> m_MenuNavigationActionsCallbackInterfaces = new List<IMenuNavigationActions>();
     private readonly InputAction m_MenuNavigation_Exit;
+    private readonly InputAction m_MenuNavigation_Pause;
     public struct MenuNavigationActions
     {
         private @InputMaster m_Wrapper;
         public MenuNavigationActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Exit => m_Wrapper.m_MenuNavigation_Exit;
+        public InputAction @Pause => m_Wrapper.m_MenuNavigation_Pause;
         public InputActionMap Get() { return m_Wrapper.m_MenuNavigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -561,6 +626,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Exit.started += instance.OnExit;
             @Exit.performed += instance.OnExit;
             @Exit.canceled += instance.OnExit;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IMenuNavigationActions instance)
@@ -568,6 +636,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Exit.started -= instance.OnExit;
             @Exit.performed -= instance.OnExit;
             @Exit.canceled -= instance.OnExit;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IMenuNavigationActions instance)
@@ -671,6 +742,52 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // Testing
+    private readonly InputActionMap m_Testing;
+    private List<ITestingActions> m_TestingActionsCallbackInterfaces = new List<ITestingActions>();
+    private readonly InputAction m_Testing_HurtPlayer;
+    public struct TestingActions
+    {
+        private @InputMaster m_Wrapper;
+        public TestingActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HurtPlayer => m_Wrapper.m_Testing_HurtPlayer;
+        public InputActionMap Get() { return m_Wrapper.m_Testing; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestingActions set) { return set.Get(); }
+        public void AddCallbacks(ITestingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TestingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TestingActionsCallbackInterfaces.Add(instance);
+            @HurtPlayer.started += instance.OnHurtPlayer;
+            @HurtPlayer.performed += instance.OnHurtPlayer;
+            @HurtPlayer.canceled += instance.OnHurtPlayer;
+        }
+
+        private void UnregisterCallbacks(ITestingActions instance)
+        {
+            @HurtPlayer.started -= instance.OnHurtPlayer;
+            @HurtPlayer.performed -= instance.OnHurtPlayer;
+            @HurtPlayer.canceled -= instance.OnHurtPlayer;
+        }
+
+        public void RemoveCallbacks(ITestingActions instance)
+        {
+            if (m_Wrapper.m_TestingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ITestingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TestingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TestingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public TestingActions @Testing => new TestingActions(this);
     public interface IPlayerMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -680,6 +797,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     public interface IMenuNavigationActions
     {
         void OnExit(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IPlayerActionsActions
     {
@@ -689,5 +807,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnToggleLamp(InputAction.CallbackContext context);
         void OnToggleWeapon(InputAction.CallbackContext context);
+    }
+    public interface ITestingActions
+    {
+        void OnHurtPlayer(InputAction.CallbackContext context);
     }
 }

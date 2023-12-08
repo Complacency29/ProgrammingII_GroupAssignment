@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 5104908081465493879}
   - component: {fileID: 6511455679878185654}
   - component: {fileID: -6449764515169933816}
+  - component: {fileID: -369751624755316832}
   m_Layer: 7
   m_Name: crate_tripleStacked
   m_TagString: Untagged
@@ -453,3 +454,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-369751624755316832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8011148520171999595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fd4366624d41a40aefc4658fba7afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList:
+  - {fileID: 11400000, guid: 31d95e06a95c5d44086f52aebaf3472d, type: 2}
+  - {fileID: 11400000, guid: ee3593224c4893f48a9f888fed46d398, type: 2}

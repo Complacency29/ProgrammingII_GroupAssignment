@@ -18,6 +18,8 @@ namespace EnemyStuff
         public StateChase chaseState { get; set; }
         public StateAttack attackState { get; set; }
 
+        private List<Module> moduleList;
+
         private void Awake()
         {
             attack = GetComponentInChildren<SphereCollider>();
@@ -37,6 +39,14 @@ namespace EnemyStuff
             RB = GetComponent<Rigidbody>();
 
             stateMachine.Initialize(wanderState);
+
+            foreach(Module mod in FindObjectsOfType<Module>())
+            {
+                if(mod.GetModuleTypes[0] == ModuleType.Room)
+                {
+                    moduleList.Add(mod);
+                }
+            }
         }
 
         public void Damage(int _amount)
@@ -64,10 +74,10 @@ namespace EnemyStuff
                     hasPath = true;
 
                     // Get all the modules
-                    Module[] moduleList = FindObjectsOfType<Module>();
+                    //Module[] moduleList = FindObjectsOfType<Module>();
 
                     // Generate a random number within the array length
-                    int random = Random.Range(0, moduleList.Length);
+                    int random = Random.Range(0, moduleList.Count);
                     Debug.Log($"module to go to: {random}");
 
                     // Set the new position to the random module's position

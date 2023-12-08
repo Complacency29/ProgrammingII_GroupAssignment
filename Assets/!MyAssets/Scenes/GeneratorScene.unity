@@ -282,7 +282,7 @@ MonoBehaviour:
   lastPlayerCount: 1
   playerList2: []
   tileset: {fileID: 11400000, guid: 401d7936159d06143a0117bba9439d49, type: 2}
-  maxIterations: 20
+  maxIterations: 3
   maxAttempts: 10
   runOnStart: 1
   useSlowGen: 0

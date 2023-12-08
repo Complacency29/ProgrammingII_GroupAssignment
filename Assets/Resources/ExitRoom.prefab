@@ -2702,7 +2702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2764644209523744924, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -6.75
       objectReference: {fileID: 0}
     - target: {fileID: 2764644209523744924, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2771,6 +2771,26 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &3914901581935663658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2764644209523744925, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+  m_PrefabInstance: {fileID: 1155590560206240439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5607019437328461096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3914901581935663658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177bddf229f8d8445a70c0652f03b7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisconnectAfterKeepAlive: 0
+  KeepAliveInBackground: 60000
+  ApplyDontDestroyOnLoad: 1
 --- !u!4 &3914901581935663659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2764644209523744924, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}

@@ -35,7 +35,9 @@ namespace EnemyStuff
         {
             spawning = true;
             yield return new WaitForSecondsRealtime(spawnCooldown);
-            Photon.Pun.PhotonView.Instantiate(enemy, transform);
+
+            Photon.Pun.PhotonNetwork.Instantiate(enemy.name, transform.position, Quaternion.identity);
+
             spawning = false;
             yield break;
         }

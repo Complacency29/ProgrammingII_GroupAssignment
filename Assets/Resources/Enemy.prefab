@@ -131,8 +131,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 20
-  m_Acceleration: 300
+  m_Speed: 0
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 999999
   m_StoppingDistance: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85899c23edb68ed45a2ab2e22c05b578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!65 &8974110113082707669
 BoxCollider:
   m_ObjectHideFlags: 0

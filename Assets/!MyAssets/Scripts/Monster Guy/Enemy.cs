@@ -85,6 +85,11 @@ namespace EnemyStuff
 
         public void Update()
         {
+            if(view.IsMine == false)
+            {
+                return;
+            }
+
             if(stateMachine.CurEnemyState == wanderState)
             {
                 if(hasPath == false)
@@ -136,7 +141,7 @@ namespace EnemyStuff
 
                         GetComponent<NavMeshAgent>().isStopped = true;
 
-                        StartCoroutine(Attack());
+                        Attack();
                     }
                     else
                     {
@@ -151,7 +156,13 @@ namespace EnemyStuff
             }
         }
 
-        private IEnumerator Attack()
+        private void Attack()
+        {
+            view.RPC("RPCAttack", RpcTarget.All);
+        }
+
+        [PunRPC]
+        private IEnumerator RPCAttack()
         {
             yield return new WaitForSecondsRealtime(0.5f);
 
@@ -168,7 +179,12 @@ namespace EnemyStuff
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.tag == "Player")
+            if (view.IsMine == false)
+            {
+                return;
+            }
+
+            if (other.tag == "Player")
             {
                 Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(Vector3.Normalize(other.transform.position - transform.position).x, Vector3.Normalize(other.transform.position - transform.position).y, Vector3.Normalize(other.transform.position - transform.position).z), Color.red);
                 Debug.Log("ray test");
@@ -181,7 +197,12 @@ namespace EnemyStuff
 
         private void CheckPlayerWithRay()
         {
-            if(targetPlayer == null)
+            if (view.IsMine == false)
+            {
+                return;
+            }
+
+            if (targetPlayer == null)
             {
                 Debug.Log("target player null");
                 return;

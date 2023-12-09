@@ -40,6 +40,19 @@ namespace EnemyStuff
             curHealth = maxHealth;
         }
 
+        float time;
+
+        private void FixedUpdate()
+        {
+            time += Time.deltaTime;
+
+            if(time >= 10f && stateMachine.CurEnemyState == wanderState)
+            {
+                time = 0;
+                hasPath = false;
+            }
+        }
+
         void Start()
         {
             curHealth = maxHealth;
@@ -74,7 +87,7 @@ namespace EnemyStuff
 
         public void Die()
         {
-            Destroy(gameObject);
+            Photon.Pun.PhotonNetwork.Destroy(gameObject);
         }
 
         Vector3 newPosition;
@@ -88,6 +101,11 @@ namespace EnemyStuff
             if(PhotonNetwork.IsMasterClient == false)
             {
                 return;
+            }
+
+            if(curHealth <= 0)
+            {
+                Die();
             }
 
             if(stateMachine.CurEnemyState == wanderState)

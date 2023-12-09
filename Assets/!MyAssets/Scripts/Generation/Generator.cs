@@ -236,16 +236,12 @@ namespace ModuleSnapping
                             if (iteration == maxIterations - 1)
                             {
                                 lastRoomGenerated = true;
-<<<<<<< HEAD
-=======
-
                                 GetComponent<NavMeshSurface>().BuildNavMesh();
                             }
 
                             if(!monsterSpawner)
                             {
                                 ClearModules();
->>>>>>> e6d15865fc55449e26b21647e380228f607307cd
                             }
 
                             //the new module fits with no issues, so turn off the connections and add the new module to the loadedModules list

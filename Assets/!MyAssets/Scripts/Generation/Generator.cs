@@ -48,7 +48,6 @@ namespace ModuleSnapping
 
             if (runOnStart && Photon.Pun.PhotonNetwork.IsMasterClient)
             {
-                Debug.Log("poop1");
                 seed = UnityEngine.Random.Range(0, int.MaxValue);
                 UnityEngine.Random.InitState(seed);
                 GenerateModules();
@@ -133,7 +132,6 @@ namespace ModuleSnapping
 
         private IEnumerator GenerateEnvironment()
         {
-            Debug.Log("poop2");
             inProgress = true;
 
 
@@ -238,6 +236,8 @@ namespace ModuleSnapping
                             if (iteration == maxIterations - 1)
                             {
                                 lastRoomGenerated = true;
+<<<<<<< HEAD
+=======
 
                                 GetComponent<NavMeshSurface>().BuildNavMesh();
                             }
@@ -245,6 +245,7 @@ namespace ModuleSnapping
                             if(!monsterSpawner)
                             {
                                 ClearModules();
+>>>>>>> e6d15865fc55449e26b21647e380228f607307cd
                             }
 
                             //the new module fits with no issues, so turn off the connections and add the new module to the loadedModules list

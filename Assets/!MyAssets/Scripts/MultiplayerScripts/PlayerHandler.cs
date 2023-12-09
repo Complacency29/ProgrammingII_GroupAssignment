@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModuleSnapping
 {
-    public class PlayerHandler : MonoBehaviour
+    public class PlayerHandler : MonoBehaviorSingleton<PlayerHandler>
     {
         [SerializeField] private GameObject playerPrefab;
 

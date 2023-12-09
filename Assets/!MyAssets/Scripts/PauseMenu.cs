@@ -11,7 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public static bool isPaused = false;
     InputMaster _controls;
-    [SerializeField] Slider _volumeSlider;
 
     private void Awake()
     {
@@ -68,11 +67,6 @@ public class PauseMenu : MonoBehaviour
     public void ExitRoom()
     {
         StartCoroutine(ExitRoomAndLoad());
-    }
-
-    public void ChangeVolume()
-    {
-        AudioListener.volume = _volumeSlider.value;
     }
 
     IEnumerator ExitRoomAndLoad()

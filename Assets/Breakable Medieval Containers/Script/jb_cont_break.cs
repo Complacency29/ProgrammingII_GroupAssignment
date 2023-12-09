@@ -20,8 +20,6 @@ public class jb_cont_break : MonoBehaviour {
 			if (fragment.attachedRigidbody) {
 				fragment.attachedRigidbody.AddExplosionForce(Force, breakPosition, Spread);
 			}
-		}
-
-       
+		}       
     }
 }

@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf299f8f251250408b3eafd39c9e9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinSound: {fileID: 8300000, guid: f9a135fd9a0eae0489e446d9d7f344c6, type: 3}
   amount: 20
   useRandomGoldAmount: 1
   randomAmountMin: 5

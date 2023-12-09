@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class jb_cont_break : MonoBehaviour, IDamageable
 {
+    [SerializeField] private AudioClip breakSound;
 	public Transform Fragments;
 	public float Spread, Force;
 
@@ -30,6 +31,7 @@ public class jb_cont_break : MonoBehaviour, IDamageable
         {
             GetComponent<LootBag>().InstantiateLoot(transform.position);
         }
+        AudioManager.instance.PlaySFX(breakSound);
 
         Instantiate(Fragments, transform.position, transform.rotation);
         Fragments.localScale = transform.localScale;

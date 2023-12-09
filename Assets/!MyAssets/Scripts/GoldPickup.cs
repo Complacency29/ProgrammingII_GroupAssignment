@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class GoldPickup : MonoBehaviour
 {
+    [SerializeField] private AudioClip coinSound;
     [SerializeField, Min(0)] int amount;
     [SerializeField] bool useRandomGoldAmount = false;
     [SerializeField, Range(1, 1000)] int randomAmountMin = 5;
@@ -33,6 +34,7 @@ public class GoldPickup : MonoBehaviour
 
         if (inventory != null)
         {
+            AudioManager.instance.PlaySFX(coinSound);
             inventory.CurGold += Mathf.Abs(amount);
             Destroy(gameObject);
         }

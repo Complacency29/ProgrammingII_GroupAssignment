@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
+using ModuleSnapping;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -71,6 +74,41 @@ public class PlayerInventory : MonoBehaviour
         }
         return false;
     }
+
+    private void Update()
+    {
+        if(GetComponent<PhotonView>().IsMine == false)
+        {
+            return;
+        }
+
+        if(curHealth <= 0)
+        {
+            curHealth = maxHealth;
+            curLampOil = MaxLampOil;
+
+            transform.position = PlayerHandler.Instance.transform.position;
+
+            //ExitRoom();
+        }
+    }
+
+    /*public void ExitRoom()
+    {
+        StartCoroutine(ExitRoomAndLoad());
+    }
+
+    IEnumerator ExitRoomAndLoad()
+    {
+        PhotonNetwork.LeaveRoom();
+        
+        while(PhotonNetwork.InRoom)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadScene("LobbyScene");
+    }*/
 
     /// <summary>
     /// This enum is for use with a bitwise operator

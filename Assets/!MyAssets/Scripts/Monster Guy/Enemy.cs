@@ -90,9 +90,9 @@ namespace EnemyStuff
             Photon.Pun.PhotonNetwork.Destroy(gameObject);
         }
 
-        Vector3 newPosition;
-        Vector3 lastKnownPos;
-        GameObject targetPlayer;
+        [SerializeField] Vector3 newPosition;
+        [SerializeField] Vector3 lastKnownPos;
+        [SerializeField] GameObject targetPlayer;
         bool hasPath = false;
         Collider attack;
 
@@ -167,11 +167,6 @@ namespace EnemyStuff
                     }
                 }
             }
-
-            if(stateMachine.CurEnemyState == attackState)
-            {
-
-            }
         }
 
         private void Attack()
@@ -187,6 +182,8 @@ namespace EnemyStuff
 
         private IEnumerator RPCAttackCO()
         {
+            Debug.Log("Attacking for real");
+
             yield return new WaitForSecondsRealtime(0.5f);
 
             attack.gameObject.SetActive(true);
@@ -233,7 +230,9 @@ namespace EnemyStuff
 
             RaycastHit hit;
 
-            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(Vector3.Normalize(targetPlayer.transform.position - transform.position).x, Vector3.Normalize(targetPlayer.transform.position - transform.position).y, Vector3.Normalize(targetPlayer.transform.position - transform.position).z), out hit))
+            Vector3 targetVector = Vector3.Normalize(new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 1, targetPlayer.transform.position.z) - transform.position);
+
+            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), targetVector, out hit))
             {
                 Debug.Log($"hit tag: {hit.transform.gameObject.tag}, object: {hit.transform.gameObject.name}");
 

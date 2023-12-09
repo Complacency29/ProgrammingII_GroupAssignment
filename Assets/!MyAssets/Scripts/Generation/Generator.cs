@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.AI;
+using Unity.AI.Navigation;
+using EnemyStuff;
 
 namespace ModuleSnapping
 {
@@ -30,6 +32,7 @@ namespace ModuleSnapping
         private List<Connection> allPendingConnections;
 
         private bool clearingInProgress = false;
+        private bool monsterSpawner = false;
 
         private String lastModule = "";
 
@@ -50,6 +53,18 @@ namespace ModuleSnapping
                 GenerateModules();
             }
 
+        }
+
+        private void Update()
+        {
+            if(FindObjectsOfType<EnemySpawner>().Length > 0)
+            {
+                monsterSpawner = true;
+            }
+            else
+            {
+                monsterSpawner = false;
+            }
         }
 
         /*public void Update()
@@ -221,6 +236,16 @@ namespace ModuleSnapping
                             if (iteration == maxIterations - 1)
                             {
                                 lastRoomGenerated = true;
+<<<<<<< HEAD
+=======
+
+                                GetComponent<NavMeshSurface>().BuildNavMesh();
+                            }
+
+                            if(!monsterSpawner)
+                            {
+                                ClearModules();
+>>>>>>> e6d15865fc55449e26b21647e380228f607307cd
                             }
 
                             //the new module fits with no issues, so turn off the connections and add the new module to the loadedModules list
@@ -385,6 +410,16 @@ namespace ModuleSnapping
 
             if (validChoices.Count > 0)
             {
+                if (iteration > 6 && !monsterSpawner && validChoices.Contains(Resources.Load("MonsterRoom") as GameObject))
+                {
+                    return Resources.Load("MonsterRoom") as GameObject;
+                }
+
+                if(validChoices.Contains(Resources.Load("MonsterRoom") as GameObject))
+                {
+                    validChoices.Remove(Resources.Load("MonsterRoom") as GameObject);
+                }
+
                 return validChoices[UnityEngine.Random.Range(0, validChoices.Count)];
             }
             else

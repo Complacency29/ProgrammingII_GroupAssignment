@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 21.6
   verticalClampUpLimit: 80
-  verticalClampDownLimit: 45
+  verticalClampDownLimit: 60
   body: {fileID: 691823237740546557}
   _camera: {fileID: 0}
 --- !u!114 &6964194492089447770
@@ -1769,6 +1769,110 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 459786632701654, guid: b8a5373968d2521479deec86b634df37, type: 3}
       propertyPath: sceneViewId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[0].time
+      value: -0.003318584
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].time
+      value: 0.0366735
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].time
+      value: 0.12609753
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].time
+      value: 0.3780378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[4].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[0].value
+      value: 0.01876831
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].value
+      value: 0.41160923
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].value
+      value: 0.79160666
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].value
+      value: 1.001755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[4].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].inSlope
+      value: 7.0361776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].inSlope
+      value: 2.541754
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].inSlope
+      value: 0.026635602
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].outSlope
+      value: 7.0361776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].outSlope
+      value: 2.541754
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].outSlope
+      value: 0.026635602
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].outWeight
+      value: 0.18057328
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833130736833957648, guid: b8a5373968d2521479deec86b634df37, type: 3}
+      propertyPath: oilLightCurve.m_Curve.Array.data[3].tangentMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1833130736833957649, guid: b8a5373968d2521479deec86b634df37, type: 3}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ModuleSnapping;
 using UnityEngine.AI;
+using Photon.Pun;
 
 namespace EnemyStuff
 {
@@ -18,6 +19,8 @@ namespace EnemyStuff
         public StateChase chaseState { get; set; }
         public StateAttack attackState { get; set; }
 
+        private PhotonView view;
+
         //private List<Module> moduleList;
         private Module[] moduleList;
 
@@ -32,6 +35,9 @@ namespace EnemyStuff
             searchState = new StateSearch(this, stateMachine);
             chaseState = new StateChase(this, stateMachine);
             attackState = new StateAttack(this, stateMachine);
+
+            view = GetComponent<PhotonView>();
+            curHealth = maxHealth;
         }
 
         void Start()
@@ -56,6 +62,12 @@ namespace EnemyStuff
         }
 
         public void Damage(int _amount)
+        {
+            view.RPC("DamageRPC", RpcTarget.All, _amount);
+        }
+
+        [PunRPC]
+        public void DamageRPC(int _amount)
         {
             curHealth -= _amount;
         }

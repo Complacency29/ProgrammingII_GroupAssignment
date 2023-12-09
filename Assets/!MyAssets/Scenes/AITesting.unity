@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113e114eca1c854e9f08827dfe24884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleTypes: 
+  moduleTypes: 00000000
   roomBoundsCollider: {fileID: 832300221}
   collisionLayer:
     serializedVersion: 2
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113e114eca1c854e9f08827dfe24884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleTypes: 
+  moduleTypes: 00000000
   roomBoundsCollider: {fileID: 1338414654}
   collisionLayer:
     serializedVersion: 2
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113e114eca1c854e9f08827dfe24884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleTypes: 
+  moduleTypes: 00000000
   roomBoundsCollider: {fileID: 2108067995}
   collisionLayer:
     serializedVersion: 2
@@ -837,6 +837,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 744131324497369051, guid: 1d971f78cf42c384a880f1a1988938c5, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838441717159104854, guid: 1d971f78cf42c384a880f1a1988938c5, type: 3}
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}

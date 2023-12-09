@@ -6,6 +6,10 @@ using Photon.Pun;
 
 public class PlayerCombat : MonoBehaviour, IDamageable
 {
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip hurtSound;
+
     [SerializeField] float attackCooldown = .5f;
     [SerializeField] Transform weaponSpawnPoint;
     Animator animator;
@@ -102,6 +106,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable
         if (!canAttack || !holdingWeapon)
             return;
 
+        AudioManager.instance.PlaySFX(attackSound);
         canAttack = false;
         StartCoroutine(AttackCooldownCO());
         animator.Play("Attack", 2);
@@ -114,9 +119,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable
     public void Damage(int _amount)
     {
         inventory.CurHealth -= Mathf.Abs(_amount);
+        AudioManager.instance.PlaySFX(hurtSound);
         if(inventory.CurHealth <= 0)
         {
             //player is dead.
+            AudioManager.instance.PlaySFX(deathSound);
         }
     }
 

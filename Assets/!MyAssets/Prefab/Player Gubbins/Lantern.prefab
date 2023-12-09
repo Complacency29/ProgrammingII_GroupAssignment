@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c83bcbffba63947ac1047d74b94cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lanternSound: {fileID: 8300000, guid: d3ab2893c4efa3843b4b4fedfed83720, type: 3}
   oilLightCurve:
     serializedVersion: 2
     m_Curve:

@@ -30,6 +30,7 @@ public class FirstPersonCameraController : MonoBehaviour
         _photonView = GetComponentInParent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
 
+
         if (!_photonView.IsMine)
         {
             _camera.enabled = false;
@@ -37,6 +38,14 @@ public class FirstPersonCameraController : MonoBehaviour
     }
     private void Update()
     {
+        if (PauseMenu.isPaused == true)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         //Quaternion targetRotation = Quaternion.Euler(-21.894f, 180f, 0f);
     }
 

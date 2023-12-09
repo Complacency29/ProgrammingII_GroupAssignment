@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    //need to find other inputs and do an if statement around them
     public GameObject pauseMenu;
-    public bool _isPaused = false;
+    public static bool isPaused = false;
     InputMaster _controls;
+    [SerializeField] Slider _volumeSlider;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (_controls.MenuNavigation.Pause.ReadValue<float>() > 0.1)
         {
-            if (_isPaused)
+            if (isPaused == true)
             {
                 ResumeGame();
             }
@@ -45,21 +46,18 @@ public class PauseMenu : MonoBehaviour
                 PauseGame();
             }
         }
-        
     }
 
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
-        //Time.timeScale = 0f;
-        _isPaused = true;
+        isPaused = true;
     }
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        //Time.timeScale = 1f;
-        _isPaused = false;
+        isPaused = false;
     }
 
     public void QuitGame()
@@ -69,18 +67,18 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitRoom()
     {
-        StartCoroutine(DisconnectAndLoad());
+        StartCoroutine(ExitRoomAndLoad());
     }
 
-    public void Settings()
+    public void ChangeVolume()
     {
-
+        AudioListener.volume = _volumeSlider.value;
     }
 
-    IEnumerator DisconnectAndLoad()
+    IEnumerator ExitRoomAndLoad()
     {
         PhotonNetwork.LeaveRoom();
-        while(PhotonNetwork.InRoom)
+        while (PhotonNetwork.InRoom)
         {
             yield return null;
         }

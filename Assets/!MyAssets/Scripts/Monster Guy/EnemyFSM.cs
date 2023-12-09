@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EnemyStuff
 {
-    public class EnemyFSM : MonoBehaviour
+    public class EnemyFSM
     {
         public EnemyState CurEnemyState { get; set; }
 

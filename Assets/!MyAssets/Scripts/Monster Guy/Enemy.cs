@@ -8,7 +8,7 @@ namespace EnemyStuff
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
-        private float maxHealth = 100;
+        public float maxHealth = 100;
         private float curHealth;
         private Rigidbody RB;
 
@@ -18,7 +18,8 @@ namespace EnemyStuff
         public StateChase chaseState { get; set; }
         public StateAttack attackState { get; set; }
 
-        private List<Module> moduleList;
+        //private List<Module> moduleList;
+        private Module[] moduleList;
 
         private void Awake()
         {
@@ -40,13 +41,18 @@ namespace EnemyStuff
 
             stateMachine.Initialize(wanderState);
 
-            foreach(Module mod in FindObjectsOfType<Module>())
+            moduleList = FindObjectsOfType<Module>();
+
+            /*foreach(Module mod in moduleList)
             {
-                if(mod.GetModuleTypes[0] == ModuleType.Room)
+                if(mod.GetModuleTypes[0] == ModuleType.GroundProp)
                 {
-                    moduleList.Add(mod);
+                    if(mod != null)
+                    {
+                       
+                    }
                 }
-            }
+            }*/
         }
 
         public void Damage(int _amount)
@@ -77,11 +83,14 @@ namespace EnemyStuff
                     //Module[] moduleList = FindObjectsOfType<Module>();
 
                     // Generate a random number within the array length
-                    int random = Random.Range(0, moduleList.Count);
+                    int random = Random.Range(0, moduleList.Length);
                     Debug.Log($"module to go to: {random}");
 
                     // Set the new position to the random module's position
-                    newPosition = moduleList[random].gameObject.transform.position;
+                    if(moduleList[random].GetModuleTypes[0] != ModuleType.GroundProp)
+                    {
+                        newPosition = moduleList[random].gameObject.transform.position;
+                    }
 
                     // Tell agent to go
                     NavMeshAgent agent = GetComponent<NavMeshAgent>();

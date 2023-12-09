@@ -48,7 +48,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
-  capIfUnused: 1
+  capIfUnused: 0
 --- !u!1 &2781745421753773479
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: -5032795168157177636}
   - component: {fileID: -480960847108342223}
   m_Layer: 7
-  m_Name: barrel_double_old
+  m_Name: barrel_double
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

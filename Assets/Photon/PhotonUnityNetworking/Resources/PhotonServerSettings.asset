@@ -50,6 +50,8 @@ MonoBehaviour:
   - LanternRPC
   - OilRefillRPC
   - HealRPC
+  - DamageRPC
+  - RPCAttack
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

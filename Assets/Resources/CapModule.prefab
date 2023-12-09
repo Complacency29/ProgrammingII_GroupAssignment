@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4586216016621407562}
   - component: {fileID: 4586216016621407565}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,6 +212,10 @@ PrefabInstance:
     - target: {fileID: 6364923053104999795, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
       propertyPath: m_Name
       value: DG_WallSimple_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364923053104999795, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9e7d929d7eac74f829b9ec41c2fa56, type: 3}

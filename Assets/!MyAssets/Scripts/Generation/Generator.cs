@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.AI;
+using Unity.AI.Navigation;
+using EnemyStuff;
 
 namespace ModuleSnapping
 {
@@ -30,6 +32,7 @@ namespace ModuleSnapping
         private List<Connection> allPendingConnections;
 
         private bool clearingInProgress = false;
+        private bool monsterSpawner = false;
 
         private String lastModule = "";
 
@@ -45,12 +48,23 @@ namespace ModuleSnapping
 
             if (runOnStart && Photon.Pun.PhotonNetwork.IsMasterClient)
             {
-                Debug.Log("poop1");
                 seed = UnityEngine.Random.Range(0, int.MaxValue);
                 UnityEngine.Random.InitState(seed);
                 GenerateModules();
             }
 
+        }
+
+        private void Update()
+        {
+            if(FindObjectsOfType<EnemySpawner>().Length > 0)
+            {
+                monsterSpawner = true;
+            }
+            else
+            {
+                monsterSpawner = false;
+            }
         }
 
         /*public void Update()
@@ -118,7 +132,6 @@ namespace ModuleSnapping
 
         private IEnumerator GenerateEnvironment()
         {
-            Debug.Log("poop2");
             inProgress = true;
 
 
@@ -223,9 +236,12 @@ namespace ModuleSnapping
                             if (iteration == maxIterations - 1)
                             {
                                 lastRoomGenerated = true;
+                                GetComponent<NavMeshSurface>().BuildNavMesh();
+                            }
 
-
-
+                            if(!monsterSpawner)
+                            {
+                                ClearModules();
                             }
 
                             //the new module fits with no issues, so turn off the connections and add the new module to the loadedModules list
@@ -390,6 +406,16 @@ namespace ModuleSnapping
 
             if (validChoices.Count > 0)
             {
+                if (iteration > 6 && !monsterSpawner && validChoices.Contains(Resources.Load("MonsterRoom") as GameObject))
+                {
+                    return Resources.Load("MonsterRoom") as GameObject;
+                }
+
+                if(validChoices.Contains(Resources.Load("MonsterRoom") as GameObject))
+                {
+                    validChoices.Remove(Resources.Load("MonsterRoom") as GameObject);
+                }
+
                 return validChoices[UnityEngine.Random.Range(0, validChoices.Count)];
             }
             else

@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [SerializeField, Range(1, 15)] private int _maxSfxTracks = 5;
+    [SerializeField, Range(1, 100)] private int _maxSfxTracks = 5;
     [SerializeField] private GameObject _audioObject;
     
     private AudioSource[] _sfxTracks;

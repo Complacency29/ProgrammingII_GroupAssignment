@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OilRefillPickup : MonoBehaviour
 {
+    [SerializeField] private AudioClip pickup;
     private void OnTriggerEnter(Collider other)
     {
         PlayerInventory inventory = other.GetComponent<PlayerInventory>();
@@ -17,6 +18,7 @@ public class OilRefillPickup : MonoBehaviour
             }
 
             //we don't have max potions, so add one and remove the game object
+            AudioManager.instance.PlaySFX(pickup);
             inventory.CurOilRefill++;
             Destroy(gameObject);
         }

@@ -40,6 +40,19 @@ namespace EnemyStuff
             curHealth = maxHealth;
         }
 
+        float time;
+
+        private void FixedUpdate()
+        {
+            time += Time.deltaTime;
+
+            if(time >= 10f && stateMachine.CurEnemyState == wanderState)
+            {
+                time = 0;
+                hasPath = false;
+            }
+        }
+
         void Start()
         {
             curHealth = maxHealth;
@@ -74,12 +87,12 @@ namespace EnemyStuff
 
         public void Die()
         {
-            Destroy(gameObject);
+            Photon.Pun.PhotonNetwork.Destroy(gameObject);
         }
 
-        Vector3 newPosition;
-        Vector3 lastKnownPos;
-        GameObject targetPlayer;
+        [SerializeField] Vector3 newPosition;
+        [SerializeField] Vector3 lastKnownPos;
+        [SerializeField] GameObject targetPlayer;
         bool hasPath = false;
         Collider attack;
 
@@ -88,6 +101,11 @@ namespace EnemyStuff
             if(PhotonNetwork.IsMasterClient == false)
             {
                 return;
+            }
+
+            if(curHealth <= 0)
+            {
+                Die();
             }
 
             if(stateMachine.CurEnemyState == wanderState)
@@ -149,11 +167,6 @@ namespace EnemyStuff
                     }
                 }
             }
-
-            if(stateMachine.CurEnemyState == attackState)
-            {
-
-            }
         }
 
         private void Attack()
@@ -169,6 +182,8 @@ namespace EnemyStuff
 
         private IEnumerator RPCAttackCO()
         {
+            Debug.Log("Attacking for real");
+
             yield return new WaitForSecondsRealtime(0.5f);
 
             attack.gameObject.SetActive(true);
@@ -215,7 +230,9 @@ namespace EnemyStuff
 
             RaycastHit hit;
 
-            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(Vector3.Normalize(targetPlayer.transform.position - transform.position).x, Vector3.Normalize(targetPlayer.transform.position - transform.position).y, Vector3.Normalize(targetPlayer.transform.position - transform.position).z), out hit))
+            Vector3 targetVector = Vector3.Normalize(new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 1, targetPlayer.transform.position.z) - transform.position);
+
+            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), targetVector, out hit))
             {
                 Debug.Log($"hit tag: {hit.transform.gameObject.tag}, object: {hit.transform.gameObject.name}");
 

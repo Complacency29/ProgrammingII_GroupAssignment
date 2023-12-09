@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField, Range(1, 100)] private int _maxSfxTracks = 5;
     [SerializeField] private GameObject _audioObject;
-
-
+    
     private AudioSource[] _sfxTracks;
     private int _curSfxIndex = 0;
 
@@ -125,4 +125,6 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Destroy(go);
     }
+
+   
 }

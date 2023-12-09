@@ -6,12 +6,10 @@ using UnityEngine;
 public class Loot : ScriptableObject
 {
     public GameObject LootPrefab;
-    public string LootName;
     public int DropChance;
 
-    public Loot(string lootName, int dropChance)
+    public Loot(int dropChance)
     {
-        LootName = lootName;
         DropChance = dropChance;
     }
 }

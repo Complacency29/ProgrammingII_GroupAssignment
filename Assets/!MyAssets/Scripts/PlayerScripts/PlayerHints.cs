@@ -12,6 +12,11 @@ public class PlayerHints : MonoBehaviour
     private Queue<KeyValuePair<string, int>> hintQueue = new Queue<KeyValuePair<string, int>>();
     private bool isDisplayingHint = false;
 
+    private void Start()
+    {
+        AddHint("stuff to say", 100);
+    }
+
     // Call this method to add a hint to the queue
     public void AddHint(string _hintText, int _priority = 0)
     {

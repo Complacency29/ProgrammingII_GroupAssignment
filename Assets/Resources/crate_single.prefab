@@ -48,7 +48,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
-  capIfUnused: 1
+  capIfUnused: 0
 --- !u!1 &7800188038034581378
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Can do this all in one script and can have more than one item dropped for now only one
 public class LootBag : MonoBehaviour
 {
     public List<Loot> lootList = new List<Loot>();

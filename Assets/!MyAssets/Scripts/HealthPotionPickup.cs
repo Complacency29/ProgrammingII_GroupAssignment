@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthPotionPickup : MonoBehaviour
 {
+    [SerializeField] public AudioClip pickup;
     private void OnTriggerEnter(Collider other)
     {
         PlayerInventory inventory = other.GetComponent<PlayerInventory>();
@@ -16,6 +17,7 @@ public class HealthPotionPickup : MonoBehaviour
             }
 
             //we don't have max potions, so add one and remove the game object
+            AudioManager.instance.PlaySFX(pickup);
             inventory.CurHealthPotions++;
             Destroy(gameObject);
         }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class jb_cont_break : MonoBehaviour {
+	[SerializeField] private AudioClip breakSound;
 	public Transform Fragments;
 	public float Spread, Force;
 
 
 	void OnMouseDown () {
         GetComponent<LootBag>().InstantiateLoot(transform.position);
-
+		AudioManager.instance.PlaySFX(breakSound);
         Destroy(gameObject);
 		Instantiate(Fragments, transform.position, transform.rotation);
 		Fragments.localScale = transform.localScale;

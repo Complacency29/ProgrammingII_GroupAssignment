@@ -9,6 +9,8 @@ using System;
 /// </summary>
 public class Lantern : MonoBehaviour
 {
+    public AudioClip lanternSound;
+
     [SerializeField] AnimationCurve oilLightCurve;
     [SerializeField, Range(0, 5)] float oilBurnRate = 1f;
     [SerializeField, Range(1, 5)] float maxLanternBrightness = 3f;
@@ -44,12 +46,14 @@ public class Lantern : MonoBehaviour
             //lantern is on, turn it off
             lanternIsOn = false;
             lanternLight.enabled = false;
+            AudioManager.instance.PlaySFX(lanternSound);
         }
         else
         {
             //lantern is off, turn it on
             lanternIsOn = true;
             lanternLight.enabled = true;
+            AudioManager.instance.PlaySFX(lanternSound);
         }
     }
 

@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Windows;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private AudioSource movementSound;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioClip bgmSound;
     [SerializeField] private PhotonView view;
     [SerializeField] private Transform _camera;
 
@@ -39,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         view = GetComponent<PhotonView>();
-
+        AudioManager.instance.PlayBGM(bgmSound, 1f);
+        //movementSound = new AudioSource();
         if(!view.IsMine && _camera != null)
         {
             Destroy(_camera.gameObject);
@@ -68,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 input = controls.PlayerMovement.Move.ReadValue<Vector2>();
         PlayerMove(input);
         AnimationController(input);
+        
 
         //Jump gubbins
         //if we are pressing the jump button AND we are grounded
@@ -76,7 +82,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Jumping");
             //set the y velocity to the amount required to reach the specified jump height based on gravity
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpSound.Play();
         }
+        
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
@@ -86,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = transform.right * _input.x + transform.forward * _input.y;
 
         characterController.Move(movement * baseMoveSpeed * Time.deltaTime);
+        if(_input.x != 0 || _input.y != 0)
+        {
+            movementSound.Play();
+        }
     }
     void AnimationController(Vector2 _input)
     {

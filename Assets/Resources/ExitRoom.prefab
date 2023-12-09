@@ -2827,6 +2827,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2764644209798969536, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764644209855264860, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764644209855264860, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_TagString
+      value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070492405206731785, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070492405206731785, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070492405911193074, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070492405911193074, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
+      propertyPath: m_TagString
+      value: Portal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c6b7501488dde04db2d27646b92b0d3, type: 3}
 --- !u!1 &3914901581748999688 stripped
@@ -11910,6 +11938,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1155590559974986367}
     m_Modifications:
+    - target: {fileID: 477643818675555167, guid: a865e9af7a58ad440b607d856e571dda, type: 3}
+      propertyPath: randomAmountMax
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 477643818675555167, guid: a865e9af7a58ad440b607d856e571dda, type: 3}
+      propertyPath: randomAmountMin
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 477643818675555168, guid: a865e9af7a58ad440b607d856e571dda, type: 3}
       propertyPath: m_RootOrder
       value: 24

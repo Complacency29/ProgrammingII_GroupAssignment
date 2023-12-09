@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         controls = new InputMaster();
         //controls.PlayerMovement.Move.performed += context => PlayerMove(context.ReadValue<Vector2>());
+        controls.Testing.MoveToEnd.started += context => MoveToEndPoint();
     }
 
     private void Start()
@@ -49,6 +50,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(_camera.gameObject);
         }
+    }
+    private void MoveToEndPoint()
+    {
+        Transform endPoint = GameObject.FindGameObjectWithTag("TestEndPoint").transform;
+        transform.position = endPoint.position;
+
     }
 
     private void Update()

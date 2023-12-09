@@ -444,6 +444,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveToEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a02df84-f197-4095-a335-5ebce508cab6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -455,6 +464,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HurtPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f61dc26-e802-4b29-8349-a2d6c881cd7c"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveToEnd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -483,6 +503,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         // Testing
         m_Testing = asset.FindActionMap("Testing", throwIfNotFound: true);
         m_Testing_HurtPlayer = m_Testing.FindAction("HurtPlayer", throwIfNotFound: true);
+        m_Testing_MoveToEnd = m_Testing.FindAction("MoveToEnd", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -747,11 +768,13 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Testing;
     private List<ITestingActions> m_TestingActionsCallbackInterfaces = new List<ITestingActions>();
     private readonly InputAction m_Testing_HurtPlayer;
+    private readonly InputAction m_Testing_MoveToEnd;
     public struct TestingActions
     {
         private @InputMaster m_Wrapper;
         public TestingActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @HurtPlayer => m_Wrapper.m_Testing_HurtPlayer;
+        public InputAction @MoveToEnd => m_Wrapper.m_Testing_MoveToEnd;
         public InputActionMap Get() { return m_Wrapper.m_Testing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -764,6 +787,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @HurtPlayer.started += instance.OnHurtPlayer;
             @HurtPlayer.performed += instance.OnHurtPlayer;
             @HurtPlayer.canceled += instance.OnHurtPlayer;
+            @MoveToEnd.started += instance.OnMoveToEnd;
+            @MoveToEnd.performed += instance.OnMoveToEnd;
+            @MoveToEnd.canceled += instance.OnMoveToEnd;
         }
 
         private void UnregisterCallbacks(ITestingActions instance)
@@ -771,6 +797,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @HurtPlayer.started -= instance.OnHurtPlayer;
             @HurtPlayer.performed -= instance.OnHurtPlayer;
             @HurtPlayer.canceled -= instance.OnHurtPlayer;
+            @MoveToEnd.started -= instance.OnMoveToEnd;
+            @MoveToEnd.performed -= instance.OnMoveToEnd;
+            @MoveToEnd.canceled -= instance.OnMoveToEnd;
         }
 
         public void RemoveCallbacks(ITestingActions instance)
@@ -811,5 +840,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     public interface ITestingActions
     {
         void OnHurtPlayer(InputAction.CallbackContext context);
+        void OnMoveToEnd(InputAction.CallbackContext context);
     }
 }

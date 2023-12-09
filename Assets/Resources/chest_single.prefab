@@ -543,4 +543,4 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
-  capIfUnused: 1
+  capIfUnused: 0

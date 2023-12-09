@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 [RequireComponent(typeof(SphereCollider))]
 public class GoldPickup : MonoBehaviour
@@ -12,7 +14,11 @@ public class GoldPickup : MonoBehaviour
     [SerializeField, Range(1, 1000)] int randomAmountMax = 100;
     [SerializeField, Range(1, 3)] float pickupRange = 1.5f;
 
+    [SerializeField] int goldThreshold = 500;
+    public GameObject[] portalObjects;
+
     public int Amount { get { return amount; } }
+    public int getGoldThreshold {  get { return goldThreshold; } }
 
     private void Awake()
     {
@@ -26,6 +32,13 @@ public class GoldPickup : MonoBehaviour
             int rng = Random.Range(randomAmountMin, randomAmountMax + 1);
             amount = rng;
         }
+
+        //Finds tags of "Portal" and turns them off to begin
+        portalObjects = GameObject.FindGameObjectsWithTag("Portal");
+        foreach (GameObject portalObject in portalObjects)
+        {
+            portalObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +50,19 @@ public class GoldPickup : MonoBehaviour
             AudioManager.instance.PlaySFX(coinSound);
             inventory.CurGold += Mathf.Abs(amount);
             Destroy(gameObject);
+
+            //Finds tags of "Portal" and turns them on if we have enough gold
+            foreach (GameObject portalObject in portalObjects)
+                {
+                    //Checks if the player has enough gold
+                    if (inventory.CurGold >= goldThreshold)
+                    {
+                        //Displays message
+                        inventory.GetComponent<PlayerHints>().AddHint("The Portal is Open!");
+                        
+                        portalObject.SetActive(true);
+                    }
+                }
         }
     }
 }

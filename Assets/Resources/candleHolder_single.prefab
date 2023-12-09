@@ -48,7 +48,7 @@ MonoBehaviour:
   gizmoScale: 1
   gizmoSphereRelativeSize: 0.2
   isDefault: 0
-  capIfUnused: 1
+  capIfUnused: 0
 --- !u!1 &3654811508839001143
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ Light:
   m_BounceIntensity: 1.54
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.2e-44, z: NaN, w: 3.6415194e-29}
+  m_BoundingSphereOverride: {x: 0, y: NaN, z: 5.79e-43, w: -9.127835e+23}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

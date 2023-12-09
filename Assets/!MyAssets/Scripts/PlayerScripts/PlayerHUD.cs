@@ -31,7 +31,7 @@ public class PlayerHUD : MonoBehaviour
         potionsText.text = "Potions: " + inventory.CurHealthPotions;
 
         healthSlider.value = inventory.CurHealth;
-        oilSlider.value = -inventory.CurLampOil;
+        oilSlider.value = inventory.CurLampOil;
 
         string oilRefillsString = "Oil Refills: " + inventory.CurOilRefill + "/" + inventory.MaxOilRefill;
         oilRefillsText.text = oilRefillsString;

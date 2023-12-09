@@ -85,7 +85,7 @@ namespace EnemyStuff
 
         public void Update()
         {
-            if(view.IsMine == false)
+            if(PhotonNetwork.IsMasterClient == false)
             {
                 return;
             }
@@ -162,7 +162,12 @@ namespace EnemyStuff
         }
 
         [PunRPC]
-        private IEnumerator RPCAttack()
+        private void RPCAttack()
+        {
+            StartCoroutine(RPCAttackCO());
+        }
+
+        private IEnumerator RPCAttackCO()
         {
             yield return new WaitForSecondsRealtime(0.5f);
 
@@ -197,7 +202,7 @@ namespace EnemyStuff
 
         private void CheckPlayerWithRay()
         {
-            if (view.IsMine == false)
+            if (PhotonNetwork.IsMasterClient == false)
             {
                 return;
             }
